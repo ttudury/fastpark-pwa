@@ -17,7 +17,6 @@ class PlazaApp extends React.Component {
     super(props)
     this.state = { plazas: [] }
   }
-
   
   componentWillMount() {
     fetch('http://5d93522fe020b300147dac48.mockapi.io/endpoint/plazas')
