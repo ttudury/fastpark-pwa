@@ -20,7 +20,7 @@ class PlazaApp extends React.Component {
   
   componentWillMount() {
     fetch('http://5d93522fe020b300147dac48.mockapi.io/endpoint/plazas')
-      .then((response) => {console.log('ok');
+      .then((response) => {
         return response.json()
       })
       .then((plazas) => {
