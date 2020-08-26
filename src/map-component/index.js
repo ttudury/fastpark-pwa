@@ -149,7 +149,7 @@ class MapComponent extends React.Component {
             scaleControl={true}
             streetViewControl={false}
             fullscreenControl={false}
-            disableDefaultUI={true}
+            mapTypeControl={false}
           >
               {this.displaySensores()}
               {this.displayConcesionados()}
@@ -163,7 +163,7 @@ class MapComponent extends React.Component {
 
 const mapStyles = {
   width: '100%',
-  height: '95%',
+  height: '92.5%',
 };
 
 const mapTypes = [
