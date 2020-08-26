@@ -1,7 +1,7 @@
 /*global google*/
 import React, { useState, useEffect } from 'react'
-import { Map, GoogleApiWrapper, Marker, Polyline  } from 'google-maps-react';
-import sensorIcon from './3d-marker.png';
+import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
+import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
 
@@ -75,16 +75,16 @@ class MapComponent extends React.Component {
           {title:'RETIRO', latitude: -34.596915758812, longitude: -58.3743730400554},
           {title:'CONGRESO II', latitude: -34.6077697202218, longitude: -58.3875916901254},
         ]
-      }
+      }  
     }
-    
+
     displaySensores = () => {
       return this.state.arduinos.map((store, index) => {
         return <Marker key={index} id={index} position={{
           lat: store.latitude,
           lng: store.longitude
         }} icon={sensorIcon}
-        onClick={() => console.log("You clicked me!")} 
+        onClick={() => {}} 
         />
       })
     }
@@ -95,10 +95,32 @@ class MapComponent extends React.Component {
           lat: conce.latitude,
           lng: conce.longitude
         }} icon={concecionadoIcon}
-        onClick={() => console.log("You clicked me!")} 
-        />
-        
+        onClick={() => {}} 
+        >
+        </Marker>
       })
+    }
+
+    displayPrivados(){
+      fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-34.617601,-58.381615&radius=50000&type=parking&key=AIzaSyDDdW-q8iCpmGrw9HPEfCGShb7wBVIp1yg')
+      .then(result => {
+        return result.json();
+      })
+      .then(result => {
+        for (let googlePlace of result.results) 
+        {
+          var myLat = googlePlace.geometry.location.lat;
+          var myLong = googlePlace.geometry.location.lng;
+          
+          return <Marker position={{
+            lat: myLat,
+            lng: myLong
+          }} icon={privadoIcon}
+          onClick={() => {}} 
+          >
+          </Marker>
+        }
+      }) 
     }
     
     displayProhibidoEstacionar = () => {
@@ -146,12 +168,17 @@ class MapComponent extends React.Component {
             zoom={18}
             style={mapStyles}
             styles={mapTypes}
-            initialCenter={{ lat: -34.617601, lng: -58.381615 }}
+            initialCenter={{ lat: -34.617601, lng: -58.381615 }}            
+            scaleControl={true}
+            streetViewControl={false}
+            fullscreenControl={false}
+            mapTypeControl={false}
           >
               {this.displaySensores()}
               {this.displayConcesionados()}
               {this.displayProhibidoEstacionar()}
               {this.displayRestringidoEstacionar()}
+              {this.displayPrivados()}
           </Map>
       );
     }
@@ -160,7 +187,7 @@ class MapComponent extends React.Component {
 
 const mapStyles = {
   width: '100%',
-  height: '100%',
+  height: '92.5%',
 };
 
 const mapTypes = [
@@ -175,6 +202,14 @@ const mapTypes = [
   },
   {
     featureType: "poi",
+    stylers: [
+      {
+        visibility: "off"
+      }
+    ]
+  },
+  {
+    featureType: "poi.business",
     stylers: [
       {
         visibility: "off"
