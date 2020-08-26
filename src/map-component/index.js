@@ -1,6 +1,6 @@
 /*global google*/
 import React, { useState, useEffect } from 'react'
-import { Map, GoogleApiWrapper, Marker, Polyline  } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
 import sensorIcon from './3d-marker.png';
 import concecionadoIcon from './concecionadoIcon.png';
 
@@ -74,16 +74,16 @@ class MapComponent extends React.Component {
           {title:'RETIRO', latitude: -34.596915758812, longitude: -58.3743730400554},
           {title:'CONGRESO II', latitude: -34.6077697202218, longitude: -58.3875916901254},
         ]
-      }
+      }  
     }
-    
+
     displaySensores = () => {
       return this.state.arduinos.map((store, index) => {
         return <Marker key={index} id={index} position={{
           lat: store.latitude,
           lng: store.longitude
         }} icon={sensorIcon}
-        onClick={() => console.log("You clicked me!")} 
+        onClick={() => {}} 
         />
       })
     }
@@ -94,9 +94,9 @@ class MapComponent extends React.Component {
           lat: conce.latitude,
           lng: conce.longitude
         }} icon={concecionadoIcon}
-        onClick={() => console.log("You clicked me!")} 
-        />
-        
+        onClick={() => {}} 
+        >
+        </Marker>
       })
     }
     
@@ -145,7 +145,11 @@ class MapComponent extends React.Component {
             zoom={18}
             style={mapStyles}
             styles={mapTypes}
-            initialCenter={{ lat: -34.617601, lng: -58.381615 }}
+            initialCenter={{ lat: -34.617601, lng: -58.381615 }}            
+            scaleControl={true}
+            streetViewControl={false}
+            fullscreenControl={false}
+            disableDefaultUI={true}
           >
               {this.displaySensores()}
               {this.displayConcesionados()}
@@ -159,7 +163,7 @@ class MapComponent extends React.Component {
 
 const mapStyles = {
   width: '100%',
-  height: '100%',
+  height: '95%',
 };
 
 const mapTypes = [

@@ -33,16 +33,6 @@ class PlazaApp extends React.Component {
       return (
         <div className="container-fluid">
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton edge="start" color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" >
-                FASTPARK
-              </Typography>
-            </Toolbar>
-          </AppBar>
           <form  style={{"marginLeft": "5px", "marginTop": "10px", "marginRight": "5px", "marginBottom": "5px"}} noValidate autoComplete="off">
             <TextField style={{"width": "100%"}} id="outlined" label="Dirección" variant="outlined" type="search" />
           </form>
