@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Map, GoogleApiWrapper, Marker, Polyline  } from 'google-maps-react';
 import markerIcon from './3d-marker.png';
+import concecionadoIcon from './concecionadoIcon.png';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -89,7 +90,7 @@ class MapComponent extends React.Component {
         return <Marker key={index} id={index} position={{
           lat: conce.latitude,
           lng: conce.longitude
-        }} icon={markerIcon}
+        }} icon={concecionadoIcon}
         onClick={() => console.log("You clicked me!")} 
         />
         
