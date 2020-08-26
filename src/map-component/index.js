@@ -1,7 +1,8 @@
 /*global google*/
 import React, { useState, useEffect } from 'react'
 import { Map, GoogleApiWrapper, Marker, Polyline  } from 'google-maps-react';
-import markerSensor from './3d-marker.png';
+import sensorIcon from './3d-marker.png';
+import concecionadoIcon from './concecionadoIcon.png';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -81,7 +82,7 @@ class MapComponent extends React.Component {
         return <Marker key={index} id={index} position={{
           lat: store.latitude,
           lng: store.longitude
-        }} icon={markerSensor}
+        }} icon={sensorIcon}
         onClick={() => console.log("You clicked me!")} 
         />
       })
@@ -92,7 +93,7 @@ class MapComponent extends React.Component {
         return <Marker key={index} id={index} position={{
           lat: conce.latitude,
           lng: conce.longitude
-        }} icon={markerSensor}
+        }} icon={concecionadoIcon}
         onClick={() => console.log("You clicked me!")} 
         />
         
