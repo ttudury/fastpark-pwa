@@ -1,8 +1,9 @@
 /*global google*/
 import React, { useState, useEffect } from 'react'
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
-import sensorIcon from './3d-marker.png';
+import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
+import privadoIcon from './concecionadoIcon.png';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -99,6 +100,28 @@ class MapComponent extends React.Component {
         </Marker>
       })
     }
+
+    displayPrivados(){
+      fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-34.617601,-58.381615&radius=50000&type=parking&key=AIzaSyDDdW-q8iCpmGrw9HPEfCGShb7wBVIp1yg')
+      .then(result => {
+        return result.json();
+      })
+      .then(result => {
+        for (let googlePlace of result.results) 
+        {
+          var myLat = googlePlace.geometry.location.lat;
+          var myLong = googlePlace.geometry.location.lng;
+          
+          return <Marker position={{
+            lat: myLat,
+            lng: myLong
+          }} icon={privadoIcon}
+          onClick={() => {}} 
+          >
+          </Marker>
+        }
+      }) 
+    }
     
     displayProhibidoEstacionar = () => {
       return this.state.estacionarProhibido.map((estPro,index) => {
@@ -155,6 +178,7 @@ class MapComponent extends React.Component {
               {this.displayConcesionados()}
               {this.displayProhibidoEstacionar()}
               {this.displayRestringidoEstacionar()}
+              {this.displayPrivados()}
           </Map>
       );
     }
@@ -178,6 +202,14 @@ const mapTypes = [
   },
   {
     featureType: "poi",
+    stylers: [
+      {
+        visibility: "off"
+      }
+    ]
+  },
+  {
+    featureType: "poi.business",
     stylers: [
       {
         visibility: "off"
