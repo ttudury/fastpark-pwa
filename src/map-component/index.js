@@ -7,10 +7,13 @@ class MapComponent extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        path: [
-          { lat: -34.617601, lng: -58.381615 },
-          { lat: -34.617729, lng: -58.384238 }
+        estacionarProhibido: [
+            { lato: -34.617601, lngo: -58.381615, latd: -34.617729, lngd: -58.384238 },
+            { lato: -34.617560, lngo: -58.381573, latd: -34.617096, lngd: -58.381613 }
         ],
+        estacionarRestringido: [
+            { lato: -34.615270, lngo: -58.381675, latd: -34.617096, lngd: -58.381613 } 
+        ],        
         arduinos: [
           {latitude: -34.590319, longitude: -58.382822},
           {latitude: -34.590947, longitude: -58.384296},
@@ -95,6 +98,44 @@ class MapComponent extends React.Component {
         
       })
     }
+    
+    displayProhibidoEstacionar = () => {
+      return this.state.estacionarProhibido.map((estPro,index) => {
+        return <Polyline key={index} id={index}  
+                  options={{ 
+                    strokeColor: " #FF0000 " 
+                  }}
+                  path={[{
+                    lat: estPro.lato,
+                    lng: estPro.lngo
+                  },
+                  { lat: estPro.latd,
+                    lng: estPro.lngd
+                  }]
+                }
+              />
+        
+      })
+    }
+    
+    displayRestringidoEstacionar = () => {
+      return this.state.estacionarRestringido.map((estRes,index) => {
+        return <Polyline key={index} id={index}  
+                  options={{ 
+                    strokeColor: " #FFF93D " 
+                  }}
+                  path={[{
+                    lat: estRes.lato,
+                    lng: estRes.lngo
+                  },
+                  { lat: estRes.latd,
+                    lng: estRes.lngd
+                  }]
+                }
+              />
+        
+      })
+    }
   
     render() {
       return (
@@ -107,7 +148,8 @@ class MapComponent extends React.Component {
           >
               {this.displaySensores()}
               {this.displayConcesionados()}
-              <Polyline path={this.state.path} options={{ strokeColor: "#FF0000 " }} />
+              {this.displayProhibidoEstacionar()}
+              {this.displayRestringidoEstacionar()}
           </Map>
       );
     }
