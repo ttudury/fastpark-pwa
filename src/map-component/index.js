@@ -1,7 +1,7 @@
 /*global google*/
 import React, { useState, useEffect } from 'react'
 import { Map, GoogleApiWrapper, Marker, Polyline  } from 'google-maps-react';
-import markerIcon from './3d-marker.png';
+import sensorIcon from './3d-marker.png';
 import concecionadoIcon from './concecionadoIcon.png';
 
 class MapComponent extends React.Component {
@@ -74,18 +74,18 @@ class MapComponent extends React.Component {
       }
     }
     
-    displayMarkers = () => {
+    displaySensores = () => {
       return this.state.arduinos.map((store, index) => {
         return <Marker key={index} id={index} position={{
           lat: store.latitude,
           lng: store.longitude
-        }} icon={markerIcon}
+        }} icon={sensorIcon}
         onClick={() => console.log("You clicked me!")} 
         />
       })
     }
     
-    displayMarkers2 = () => {
+    displayConcesionados = () => {
       return this.state.concesionados.map((conce, index) => {
         return <Marker key={index} id={index} position={{
           lat: conce.latitude,
@@ -106,8 +106,8 @@ class MapComponent extends React.Component {
             styles={mapTypes}
             initialCenter={{ lat: -34.617601, lng: -58.381615 }}
           >
-              {this.displayMarkers()}
-              {this.displayMarkers2()}
+              {this.displaySensores()}
+              {this.displayConcesionados()}
               <Polyline path={this.state.path} options={{ strokeColor: "#FF0000 " }} />
           </Map>
       );
