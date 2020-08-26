@@ -43,7 +43,7 @@ class PlazaApp extends React.Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          <form  style={{"margin-left": "5px", "margin-top": "10px", "margin-right": "5px", "margin-bottom": "5px"}} noValidate autoComplete="off">
+          <form  style={{"marginLeft": "5px", "marginTop": "10px", "marginRight": "5px", "marginBottom": "5px"}} noValidate autoComplete="off">
             <TextField style={{"width": "100%"}} id="outlined" label="Dirección" variant="outlined" type="search" />
           </form>
           <MapComponent />
