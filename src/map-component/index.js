@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
 import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
-import privadoIcon from './concecionadoIcon.png';
+import privadoIcon from './privadoIcon.png';
 
 class MapComponent extends React.Component {
   constructor(props) {
