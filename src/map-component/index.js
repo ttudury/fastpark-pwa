@@ -23,6 +23,9 @@ class MapComponent extends React.Component {
           {latitude: -34.591146, longitude: -58.384395},
           {latitude: -34.591552, longitude: -58.384199},
           {latitude: -34.590371, longitude: -58.382553},
+        ],      
+        privados: [
+          {latitude: -34.617852, longitude: -58.384709}
         ],
         concesionados: [
           {title:'FACULTAD DE DERECHO', latitude: -34.5839065037098, longitude: -58.3893432777092},
@@ -101,13 +104,25 @@ class MapComponent extends React.Component {
       })
     }
 
-    displayPrivados(){
-      fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-34.617601,-58.381615&radius=50000&type=parking&key=AIzaSyDDdW-q8iCpmGrw9HPEfCGShb7wBVIp1yg')
-      .then(result => {
-        return result.json();
+    displayPrivados = () => {
+      return this.state.privados.map((privado, index) => {
+        return <Marker key={index} id={index} position={{
+          lat: privado.latitude,
+          lng: privado.longitude
+        }} icon={privadoIcon}
+        onClick={() => {}} 
+        >
+        </Marker>
       })
-      .then(result => {
-        for (let googlePlace of result.results) 
+    }    
+
+    /*displayPrivados(){
+      fetch('http://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-34.617601,-58.381615&radius=50000&type=parking&key=AIzaSyDDdW-q8iCpmGrw9HPEfCGShb7wBVIp1yg')
+      .then(response => {
+        return response.json();
+      })
+      .then(response => {
+        for (let googlePlace of response.results) 
         {
           var myLat = googlePlace.geometry.location.lat;
           var myLong = googlePlace.geometry.location.lng;
@@ -121,7 +136,7 @@ class MapComponent extends React.Component {
           </Marker>
         }
       }) 
-    }
+    }*/
     
     displayProhibidoEstacionar = () => {
       return this.state.estacionarProhibido.map((estPro,index) => {
