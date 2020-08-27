@@ -1,9 +1,9 @@
-/*global google*/
-import React, { useState, useEffect } from 'react'
-import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
+import React from 'react'
+import { Map, GoogleApiWrapper, Marker, Polyline } from 'google-maps-react';
 import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -120,7 +120,6 @@ class MapComponent extends React.Component {
   }    
 
   /*displayPrivados(){
-    fetch('http://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-34.617601,-58.381615&radius=50000&type=parking&key=AIzaSyDDdW-q8iCpmGrw9HPEfCGShb7wBVIp1yg')
     .then(response => {
       return response.json();
     })
@@ -198,15 +197,18 @@ class MapComponent extends React.Component {
           {this.displayProhibidoEstacionar()}
           {this.displayRestringidoEstacionar()}
           {this.displayPrivados()}
+
+          <GooglePlacesAutocomplete marginTop="10px"
+              />
       </Map>
     );
   }
 }
 
-
 const mapStyles = {
   width: '100%',
-  height: '92.5%',
+  height: '100%',
+  
 };
 
 const mapTypes = [
@@ -256,6 +258,6 @@ const mapTypes = [
 
 export default (
       GoogleApiWrapper({
-          apiKey: 'AIzaSyDDdW-q8iCpmGrw9HPEfCGShb7wBVIp1yg'
+          apiKey: 'AIzaSyDTFFrHQW_TxJsP9pnkrpZXkytGY03EL9g'
       })(MapComponent)
 )
