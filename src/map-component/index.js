@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map, GoogleApiWrapper, Marker, Polyline } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
 import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
@@ -83,9 +83,13 @@ class MapComponent extends React.Component {
         {title:'CONGRESO II', latitude: -34.6077697202218, longitude: -58.3875916901254},
       ],      
       publicosMoto: [
-        {title:'APART CAR INDEPENDENCIA', latitude: -34.6088014099784, longitude: -58.3752074695365},
-        {title:'UADE ESTACIONAMIENTO', latitude: -34.6088342013014, longitude: -58.3756761258011}
-      ]
+        {title:'MONTSERRAT 1', latitude: -34.6088014099784, longitude: -58.3752074695365},
+        {title:'MONTSERRAT 2', latitude: -34.6088342013014, longitude: -58.3756761258011},
+        {title:'SAN NICOLAS 1', latitude: -34.6078650638271, longitude: -58.3751815793154}
+      ],
+      showingInfoWindow: false,  //Hides or the shows the infoWindow
+      activeMarker: {},          //Shows the active marker upon click
+      selectedPlace: {}          //Shows the infoWindow to the selected place upon a marker
     }  
   }
 
@@ -102,12 +106,17 @@ class MapComponent extends React.Component {
   
   displayConcesionados = () => {
     return this.state.concesionados.map((conce, index) => {
-      return <Marker key={index} id={index} position={{
-        lat: conce.latitude,
-        lng: conce.longitude
-      }} icon={concecionadoIcon}
-      onClick={() => {}} 
-      >    
+      return <Marker
+        key={index} 
+        id={index} 
+        position={{
+          lat: conce.latitude,
+          lng: conce.longitude
+        }} 
+        icon={concecionadoIcon}
+        onClick={this.onMarkerClick}
+        name={conce.title}
+      >
       </Marker>
     })
   }
@@ -117,8 +126,11 @@ class MapComponent extends React.Component {
       return <Marker key={index} id={index} position={{
         lat: priva.latitude,
         lng: priva.longitude
-      }} icon={privadoIcon}
-      onClick={() => {}} 
+      }} 
+      visible={true}
+      icon={privadoIcon}
+      onClick={this.onMarkerClick}
+      name={priva.title}
       >
       </Marker>
     })
@@ -130,11 +142,28 @@ class MapComponent extends React.Component {
         lat: pmoto.latitude,
         lng: pmoto.longitude
       }} icon={ motoIcon }
-      onClick={() => {}} 
+      onClick={this.onMarkerClick}
+      name={pmoto.title}
       >
       </Marker>
     })
   }
+
+  onMarkerClick = (props, marker, e) =>
+  this.setState({
+    selectedPlace: props,
+    activeMarker: marker,
+    showingInfoWindow: true
+  });
+
+onClose = props => {
+  if (this.state.showingInfoWindow) {
+    this.setState({
+      showingInfoWindow: false,
+      activeMarker: null
+    });
+  }
+};
       
 
   /*displayPrivados(){
@@ -210,15 +239,24 @@ class MapComponent extends React.Component {
         fullscreenControl={false}
         mapTypeControl={false}
       >
+          <GooglePlacesAutocomplete>
+
+          </GooglePlacesAutocomplete>
           {this.displaySensores()}
           {this.displayConcesionados()}
           {this.displayMotocicletas()}
           {this.displayPrivados()}
           {this.displayProhibidoEstacionar()}
           {this.displayRestringidoEstacionar()}
-
-          <GooglePlacesAutocomplete
-              />
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            onClose={this.onClose}
+          >
+          <div>
+            <h4>{this.state.selectedPlace.name}</h4>
+          </div>
+          </InfoWindow>
       </Map>
     );
   }
@@ -227,7 +265,6 @@ class MapComponent extends React.Component {
 const mapStyles = {
   width: '100%',
   height: '100%',
-  
 };
 
 
