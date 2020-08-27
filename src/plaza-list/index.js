@@ -6,13 +6,14 @@ class PlazaList extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-      <h1>Estacionamientos disponibles</h1>
+      <h1>Referencias</h1>
         <ul className="media-list">
           {
             this.props.listado.map((plaza) => {
-              return <PlazaRow key={ plaza.id }
-                                  nombre={ plaza.nombre }
-                                  estado={ '$' + plaza.estado }  />
+              return <PlazaRow  key={ plaza.id }
+                                nombre={ plaza.nombre }
+                                estado={ '$' + plaza.estado }  
+                    />
             })
           }
         </ul>
