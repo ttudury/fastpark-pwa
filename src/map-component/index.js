@@ -83,8 +83,8 @@ class MapComponent extends React.Component {
         {title:'CONGRESO II', latitude: -34.6077697202218, longitude: -58.3875916901254},
       ],      
       publicosMoto: [
-        {title:'APART CAR INDEPENDENCIA', latitude: -34.617852, longitude: -58.384709},
-        {title:'UADE ESTACIONAMIENTO', latitude: -34.617551, longitude: -58.381996}
+        {title:'APART CAR INDEPENDENCIA', latitude: -34.6088014099784, longitude: -58.3752074695365},
+        {title:'UADE ESTACIONAMIENTO', latitude: -34.6088342013014, longitude: -58.3756761258011}
       ]
     }  
   }
@@ -106,7 +106,6 @@ class MapComponent extends React.Component {
         lat: conce.latitude,
         lng: conce.longitude
       }} icon={concecionadoIcon}
-      label={conce.title}
       onClick={() => {}} 
       >    
       </Marker>
@@ -119,7 +118,18 @@ class MapComponent extends React.Component {
         lat: priva.latitude,
         lng: priva.longitude
       }} icon={privadoIcon}
-      label={priva.title}
+      onClick={() => {}} 
+      >
+      </Marker>
+    })
+  }
+
+  displayMotocicletas = () => {
+    return this.state.publicosMoto.map((pmoto, index) => {
+      return <Marker key={index} id={index} position={{
+        lat: pmoto.latitude,
+        lng: pmoto.longitude
+      }} icon={ motoIcon }
       onClick={() => {}} 
       >
       </Marker>
@@ -202,9 +212,10 @@ class MapComponent extends React.Component {
       >
           {this.displaySensores()}
           {this.displayConcesionados()}
+          {this.displayMotocicletas()}
+          {this.displayPrivados()}
           {this.displayProhibidoEstacionar()}
           {this.displayRestringidoEstacionar()}
-          {this.displayPrivados()}
 
           <GooglePlacesAutocomplete
               />
