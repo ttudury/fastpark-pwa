@@ -3,6 +3,7 @@ import { Map, GoogleApiWrapper, Marker, Polyline } from 'google-maps-react';
 import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
+import motoIcon from './motoIcon.png';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 class MapComponent extends React.Component {
