@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline } from 'google-maps-react';
 import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
@@ -8,6 +8,8 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 class MapComponent extends React.Component {
   constructor(props) {
     super(props);
+
+    //no creo que sean propiedades del componente...
     this.state = {
       estacionarProhibido: [
         { lato: -34.617601, lngo: -58.381615, latd: -34.617729, lngd: -58.384238 },
@@ -78,6 +80,10 @@ class MapComponent extends React.Component {
         {title:'RECOLETA II', latitude: -34.5959394021743, longitude: -58.4000960707858},
         {title:'RETIRO', latitude: -34.596915758812, longitude: -58.3743730400554},
         {title:'CONGRESO II', latitude: -34.6077697202218, longitude: -58.3875916901254},
+      ],      
+      publicosMoto: [
+        {title:'APART CAR INDEPENDENCIA', latitude: -34.617852, longitude: -58.384709},
+        {title:'UADE ESTACIONAMIENTO', latitude: -34.617551, longitude: -58.381996}
       ]
     }  
   }
@@ -101,7 +107,7 @@ class MapComponent extends React.Component {
       }} icon={concecionadoIcon}
       label={conce.title}
       onClick={() => {}} 
-      >
+      >    
       </Marker>
     })
   }
@@ -117,7 +123,8 @@ class MapComponent extends React.Component {
       >
       </Marker>
     })
-  }    
+  }
+      
 
   /*displayPrivados(){
     .then(response => {
@@ -198,7 +205,7 @@ class MapComponent extends React.Component {
           {this.displayRestringidoEstacionar()}
           {this.displayPrivados()}
 
-          <GooglePlacesAutocomplete marginTop="10px"
+          <GooglePlacesAutocomplete
               />
       </Map>
     );
@@ -210,6 +217,7 @@ const mapStyles = {
   height: '100%',
   
 };
+
 
 const mapTypes = [
   {
