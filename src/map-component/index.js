@@ -139,7 +139,8 @@ class MapComponent extends React.Component {
         </Marker>
       }
     }) 
-  }*/
+  }
+  */
   
   displayProhibidoEstacionar = () => {
     return this.state.estacionarProhibido.map((estPro,index) => {
