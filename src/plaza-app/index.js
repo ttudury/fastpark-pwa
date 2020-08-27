@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 class PlazaApp extends React.Component {
 
@@ -33,8 +34,22 @@ class PlazaApp extends React.Component {
       return (
         <div className="container-fluid">
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton edge="start" color="inherit" aria-label="menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" >
+                FASTPARK
+              </Typography>
+            </Toolbar>
+          </AppBar>
           <form  style={{"marginLeft": "5px", "marginTop": "10px", "marginRight": "5px", "marginBottom": "5px"}} noValidate autoComplete="off">
-            <TextField style={{"width": "100%"}} id="outlined" label="Dirección" variant="outlined" type="search" />
+            <div>
+              <GooglePlacesAutocomplete
+                apiKey="AIzaSyDDdW-q8iCpmGrw9HPEfCGShb7wBVIp1yg"
+              />
+            </div>
           </form>
           <MapComponent />
           <div>

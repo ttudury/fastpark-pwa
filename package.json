@@ -13,6 +13,7 @@
     "material-ui-icons": "^1.0.0-beta.36",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-google-places-autocomplete": "^3.0.0-alpha.1",
     "react-scripts": "3.4.0",
     "typeface-roboto": "0.0.75"
   },
