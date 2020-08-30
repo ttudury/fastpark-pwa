@@ -5,6 +5,8 @@ import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
 import motoIcon from './motoIcon.png';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+//import io from 'socket.io-client';
+
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -92,6 +94,44 @@ class MapComponent extends React.Component {
       selectedPlace: {}          //Shows the infoWindow to the selected place upon a marker
     }  
   }
+  
+  displayProhibidoEstacionar = () => {
+    return this.state.estacionarProhibido.map((estPro,index) => {
+      return <Polyline key={index} id={index}  
+                options={{ 
+                  strokeColor: " #FF0000 " 
+                }}
+                path={[{
+                  lat: estPro.lato,
+                  lng: estPro.lngo
+                },
+                { lat: estPro.latd,
+                  lng: estPro.lngd
+                }]
+              }
+            />
+      
+    })
+  }
+  
+  displayRestringidoEstacionar = () => {
+    return this.state.estacionarRestringido.map((estRes,index) => {
+      return <Polyline key={index} id={index}  
+                options={{ 
+                  strokeColor: " #FFF93D " 
+                }}
+                path={[{
+                  lat: estRes.lato,
+                  lng: estRes.lngo
+                },
+                { lat: estRes.latd,
+                  lng: estRes.lngd
+                }]
+              }
+            />
+      
+    })
+  }
 
   displaySensores = () => {
     return this.state.arduinos.map((store, index) => {
@@ -164,67 +204,15 @@ onClose = props => {
     });
   }
 };
-      
 
-  /*displayPrivados(){
-    .then(response => {
-      return response.json();
-    })
-    .then(response => {
-      for (let googlePlace of response.results) 
-      {
-        var myLat = googlePlace.geometry.location.lat;
-        var myLong = googlePlace.geometry.location.lng;
-        
-        return <Marker position={{
-          lat: myLat,
-          lng: myLong
-        }} icon={privadoIcon}
-        onClick={() => {}} 
-        >
-        </Marker>
-      }
-    }) 
-  }
-  */
+/*shouldComponentUpdate = () => {
+  const socket = io.connect('http://localhost:3000');
+
+  socket.on('distance', function(data) {
+    console.log(data);
+  });
+}*/
   
-  displayProhibidoEstacionar = () => {
-    return this.state.estacionarProhibido.map((estPro,index) => {
-      return <Polyline key={index} id={index}  
-                options={{ 
-                  strokeColor: " #FF0000 " 
-                }}
-                path={[{
-                  lat: estPro.lato,
-                  lng: estPro.lngo
-                },
-                { lat: estPro.latd,
-                  lng: estPro.lngd
-                }]
-              }
-            />
-      
-    })
-  }
-  
-  displayRestringidoEstacionar = () => {
-    return this.state.estacionarRestringido.map((estRes,index) => {
-      return <Polyline key={index} id={index}  
-                options={{ 
-                  strokeColor: " #FFF93D " 
-                }}
-                path={[{
-                  lat: estRes.lato,
-                  lng: estRes.lngo
-                },
-                { lat: estRes.latd,
-                  lng: estRes.lngd
-                }]
-              }
-            />
-      
-    })
-  }
 
   render() {
     return (
