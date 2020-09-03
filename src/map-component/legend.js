@@ -68,7 +68,9 @@ const legendStyle = {
 const referenceStyle = {
     position: 'relative',
     font: '400 11px Roboto, Arial, sans-serif',
-    dispaly:'block',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'left',
   };
 
 
