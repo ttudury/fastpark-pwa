@@ -206,29 +206,22 @@ onClose = props => {
   }
 };
 
-/*shouldComponentUpdate = () => {
-  const socket = io.connect('http://localhost:3000');
-
-  socket.on('distance', function(data) {
-    console.log(data);
-  });
-}*/
-  
-
   render() {
     return (
       <Map
         google={this.props.google}
-        zoom={18}
+        zoom={15}
         style={mapStyles}
         styles={mapTypes}
         initialCenter={{ lat: -34.617601, lng: -58.381615 }}            
-        scaleControl={true}
+        scaleControl={false}
+        zoomControl={false}
         streetViewControl={false}
         fullscreenControl={false}
         mapTypeControl={false}
+        
       >
-          <GooglePlacesAutocomplete>
+          <GooglePlacesAutocomplete >
 
           </GooglePlacesAutocomplete>
           {this.displaySensores()}
@@ -281,14 +274,6 @@ const mapTypes = [
     ]
   },
   {
-    featureType: "poi.business",
-    stylers: [
-      {
-        visibility: "off"
-      }
-    ]
-  },
-  {
     featureType: "road",
     elementType: "labels.icon",
     stylers: [
@@ -304,7 +289,7 @@ const mapTypes = [
         visibility: "off"
       }
     ]
-  }
+  },
 ];
 
 export default (

@@ -25,23 +25,34 @@ class Legend extends React.Component {
             <h3>REFERENCIAS</h3>
             <div
             style={referenceStyle}>
-            <img src={sensorIcon} width={"32"} height={"32"}/>
+            <img src={sensorIcon} width={"32"} height={"32"} alt={"Libre"}/>
+            Libre
+            </div>
+            <div
+            style={referenceStyle}>
+            <img src={sensorIcon} width={"32"} height={"32"} alt={"Ocupado"}/>
             Ocupado
             </div>
             <div
             style={referenceStyle}>
-            <img src={motoIcon} width={"32"} height={"32"}/>
+            <img src={motoIcon} width={"32"} height={"32"} alt={"Motos"}/>
             Motos
             </div>
             <div
             style={referenceStyle}>
-            <img src={concecionadoIcon} width={"32"} height={"32"}/>
-            Concesionado
+            <img src={concecionadoIcon} width={"32"} height={"32"} alt={"Concesionado"}/>
+            Ciudad
             </div>
             <div
             style={referenceStyle}>
-            <img src={privadoIcon} width={"32"} height={"32"}/>
+            <img src={privadoIcon} width={"32"} height={"32"} alt={"Privado"}/>
             Privado
+            </div>
+            <div
+            style={referenceStyle}>
+            <img src={privadoIcon} width={"32"} height={"32"} alt={"Privado Techado"}/>
+            Privado<br></br>
+            Techado
             </div>
         </div>
     );
@@ -51,16 +62,13 @@ class Legend extends React.Component {
 const legendStyle = {
   position: 'absolute',
   style: 'z-index',
-  bottom: '100px',
+  top: '90px',
   right: '0px',
   background: '#ffffff',
   border: '3px solid',
   margin: '10px',
   padding:'10px',
-  dispaly:'block',
   font: '400 11px Roboto, Arial, sans-serif',
-  alignItems: 'center',
-  justifyContent: 'left',
 };
 
 
