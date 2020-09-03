@@ -5,6 +5,7 @@ import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
 import motoIcon from './motoIcon.png';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import Legend from './legend.js';
 //import io from 'socket.io-client';
 
 
@@ -245,6 +246,11 @@ onClose = props => {
             <h4>{this.state.selectedPlace.name}</h4>
           </div>
           </InfoWindow>
+
+          <Legend>
+            
+          </Legend>
+
       </Map>
     );
   }
