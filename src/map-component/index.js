@@ -3,6 +3,7 @@ import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps
 import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
+import privadoTechadoIcon from './privadoTechadoIcon.png';
 import motoIcon from './motoIcon.png';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import Legend from './legend.js';
@@ -32,7 +33,9 @@ class MapComponent extends React.Component {
       ],      
       privados: [
         {title:'APART CAR INDEPENDENCIA', latitude: -34.617852, longitude: -58.384709},
-        {title:'UADE ESTACIONAMIENTO', latitude: -34.617551, longitude: -58.381996}
+      ],   
+      privadosTechados: [
+        {title:'UADE ESTACIONAMIENTO', latitude: -34.617551, longitude: -58.381996, precio: 100},
       ],
       concesionados: [
         {title:'FACULTAD DE DERECHO', latitude: -34.5839065037098, longitude: -58.3893432777092},
@@ -88,7 +91,8 @@ class MapComponent extends React.Component {
       publicosMoto: [
         {title:'MONTSERRAT 1', latitude: -34.6088014099784, longitude: -58.3752074695365},
         {title:'MONTSERRAT 2', latitude: -34.6088342013014, longitude: -58.3756761258011},
-        {title:'SAN NICOLAS 1', latitude: -34.6078650638271, longitude: -58.3751815793154}
+        {title:'SAN NICOLAS 1', latitude: -34.6078650638271, longitude: -58.3751815793154},
+        {title:'UADE', latitude: -34.616809, longitude: -58.381633}, 
       ],
       showingInfoWindow: false,  //Hides or the shows the infoWindow
       activeMarker: {},          //Shows the active marker upon click
@@ -177,6 +181,21 @@ class MapComponent extends React.Component {
     })
   }
 
+  displayPrivadosTechados = () => {
+    return this.state.privadosTechados.map((privaTech, index) => {
+      return <Marker key={index} id={index} position={{
+        lat: privaTech.latitude,
+        lng: privaTech.longitude
+      }} 
+      visible={true}
+      icon={privadoTechadoIcon}
+      onClick={this.onMarkerClick}
+      name={privaTech.title + '\n Precio: $' + privaTech.precio}
+      >
+      </Marker>
+    })
+  }
+
   displayMotocicletas = () => {
     return this.state.publicosMoto.map((pmoto, index) => {
       return <Marker key={index} id={index} position={{
@@ -210,7 +229,7 @@ onClose = props => {
     return (
       <Map
         google={this.props.google}
-        zoom={15}
+        zoom={16}
         style={mapStyles}
         styles={mapTypes}
         initialCenter={{ lat: -34.617601, lng: -58.381615 }}            
@@ -228,6 +247,7 @@ onClose = props => {
           {this.displayConcesionados()}
           {this.displayMotocicletas()}
           {this.displayPrivados()}
+          {this.displayPrivadosTechados()}
           {this.displayProhibidoEstacionar()}
           {this.displayRestringidoEstacionar()}
           <InfoWindow

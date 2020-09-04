@@ -3,6 +3,7 @@ import sensorIcon from './sensorIcon.png';
 import motoIcon from './motoIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
+import privadoTechadoIcon from './privadoTechadoIcon.png';
 import rojoIcon from './redLine.png';
 import amarilloIcon from './yellowLine.png';
 import verdeIcon from './greenLine.png';
@@ -13,11 +14,10 @@ import Draggable from 'react-draggable';
 class Legend extends React.Component {
   constructor(props) {
     super(props);
-
-    //no creo que sean propiedades del componente...
+    
     this.state = {
       showing: true,
-      hide: false,
+      hide: true,
     };
   }
 
@@ -44,7 +44,7 @@ class Legend extends React.Component {
             <Button  
             style={buttonCloseStyle}
             title={'cerrar referencias'}
-            onClick={() => this.setState({ hide: !hide })}>X
+            onClick={() => this.setState({ hide: !hide })}>x
             </Button>
           </ButtonGroup>
             { showing && !hide
@@ -96,7 +96,7 @@ class Legend extends React.Component {
             { showing && !hide
                     ? <div
                       style={referenceStyle}>
-                        <img src={privadoIcon} width={"32"} height={"32"} alt={"Privado Techado"}/>
+                        <img src={privadoTechadoIcon} width={"32"} height={"32"} alt={"Privado Techado"}/>
                         Privado<br></br>
                         Techado
                       </div>
@@ -172,7 +172,7 @@ const referenceStyle = {
   const buttonCloseStyle = {
     backgroundColor: '#3f51b5',
     color: 'white',
-    fontSize: '5px',
+    fontSize: '10px',
     padding: '1px 8px',
     borderRadius: '5px',
   }
