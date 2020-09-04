@@ -3,6 +3,11 @@ import sensorIcon from './sensorIcon.png';
 import motoIcon from './motoIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
+import rojoIcon from './redLine.png';
+import amarilloIcon from './yellowLine.png';
+import verdeIcon from './greenLine.png';
+import { Button, ButtonGroup } from '@material-ui/core';
+import Draggable from 'react-draggable';
 
 
 class Legend extends React.Component {
@@ -11,50 +16,124 @@ class Legend extends React.Component {
 
     //no creo que sean propiedades del componente...
     this.state = {
-    }  
+      showing: true,
+      hide: false,
+    };
   }
 
 
 
 
   render() {
+    const { showing } = this.state;
+    const { hide } = this.state;
     return (
+      <Draggable>
         <div
         
-        style={legendStyle}>
-            <h3>REFERENCIAS</h3>
-            <div
-            style={referenceStyle}>
-            <img src={sensorIcon} width={"32"} height={"32"} alt={"Libre"}/>
-            Libre
-            </div>
-            <div
-            style={referenceStyle}>
-            <img src={sensorIcon} width={"32"} height={"32"} alt={"Ocupado"}/>
-            Ocupado
-            </div>
-            <div
-            style={referenceStyle}>
-            <img src={motoIcon} width={"32"} height={"32"} alt={"Motos"}/>
-            Motos
-            </div>
-            <div
-            style={referenceStyle}>
-            <img src={concecionadoIcon} width={"32"} height={"32"} alt={"Concesionado"}/>
-            Ciudad
-            </div>
-            <div
-            style={referenceStyle}>
-            <img src={privadoIcon} width={"32"} height={"32"} alt={"Privado"}/>
-            Privado
-            </div>
-            <div
-            style={referenceStyle}>
-            <img src={privadoIcon} width={"32"} height={"32"} alt={"Privado Techado"}/>
-            Privado<br></br>
-            Techado
-            </div>
+        style={legendStyle}
+        >
+          <ButtonGroup 
+          style={buttonGroupStyle}>
+            <Button  
+            style={buttonSwitchStyle}
+            title={'cambiar referencias'}
+            onClick={() => this.setState({ showing: !showing })}>	
+            ← →
+            </Button>
+            <Button  
+            style={buttonCloseStyle}
+            title={'cerrar referencias'}
+            onClick={() => this.setState({ hide: !hide })}>X
+            </Button>
+          </ButtonGroup>
+            { showing && !hide
+                    ? <div
+                      style={referenceStyle}>
+                        <img src={sensorIcon} width={"32"} height={"32"} alt={"Libre"}/>
+                        Libre
+                      </div>
+                    : null
+            }
+
+            { showing && !hide
+                    ? <div
+                      style={referenceStyle}>
+                        <img src={sensorIcon} width={"32"} height={"32"} alt={"Ocupado"}/>
+                        Ocupado
+                      </div>
+                    : null
+            } 
+
+            { showing && !hide
+                    ? <div
+                      style={referenceStyle}>
+                        <img src={motoIcon} width={"32"} height={"32"} alt={"Cajon Motos"}/>
+                        Cajon<br></br>
+                        Motos
+                      </div>
+                    : null
+            } 
+
+            { showing && !hide
+                    ? <div
+                      style={referenceStyle}>
+                        <img src={concecionadoIcon} width={"32"} height={"32"} alt={"Concesionado"}/>
+                        Ciudad
+                      </div>
+                    : null
+            } 
+
+            { showing && !hide
+                    ? <div
+                      style={referenceStyle}>
+                        <img src={privadoIcon} width={"32"} height={"32"} alt={"Privado"}/>
+                        Privado
+                      </div>
+                    : null
+            } 
+
+            { showing && !hide
+                    ? <div
+                      style={referenceStyle}>
+                        <img src={privadoIcon} width={"32"} height={"32"} alt={"Privado Techado"}/>
+                        Privado<br></br>
+                        Techado
+                      </div>
+                    : null
+            } 
+
+            { !showing && !hide
+                    ? <div
+                    style={referenceStyle}>
+                      <img src={rojoIcon} width={"32"} height={"32"} alt={"Prohibido Estacionar"}/>
+                      Prohibido<br></br>
+                      Estacionar
+                    </div>
+                    : null
+            } 
+
+            { !showing && !hide
+                    ? <div
+                    style={referenceStyle}>
+                      <img src={amarilloIcon} width={"32"} height={"32"} alt={"Restringido Estacionar"}/>
+                      Restringido<br></br>
+                      Estacionar
+                    </div>
+                    : null
+            } 
+
+            { !showing && !hide
+                    ? <div
+                    style={referenceStyle}>
+                      <img src={verdeIcon} width={"32"} height={"32"} alt={"Permitido Estacionar"}/>
+                      Permitido<br></br>
+                      Estacionar
+                    </div>
+                    : null
+            } 
         </div>
+      </Draggable>
     );
   }
 }
@@ -66,6 +145,7 @@ const legendStyle = {
   right: '0px',
   background: '#ffffff',
   border: '3px solid',
+  borderColor: '#3f51b5',
   margin: '10px',
   padding:'10px',
   font: '400 11px Roboto, Arial, sans-serif',
@@ -81,5 +161,24 @@ const referenceStyle = {
     justifyContent: 'left',
   };
 
+  const buttonSwitchStyle = {
+    backgroundColor: '#3f51b5',
+    color: 'white',
+    fontSize: '15px',
+    padding: '1px 8px',
+    borderRadius: '5px',
+  }
+
+  const buttonCloseStyle = {
+    backgroundColor: '#3f51b5',
+    color: 'white',
+    fontSize: '5px',
+    padding: '1px 8px',
+    borderRadius: '5px',
+  }
+
+  const buttonGroupStyle = {
+    display: 'flex',
+  }  
 
 export default Legend
