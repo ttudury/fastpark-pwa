@@ -1,8 +1,6 @@
 import React from 'react'
 import PlazaList from '../plaza-list'
-import MapComponent from '../map-component'
-
-
+import MapComponent from '../map-component';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -43,7 +41,7 @@ class PlazaApp extends React.Component {
           <div>
             <br></br>
           </div>
-          <PlazaList listado={this.state.plazas} />
+           <PlazaList listado={this.state.plazas} />  
         </div>
       )
     } else {

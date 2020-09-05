@@ -18,8 +18,13 @@ void loop() {
   digitalWrite(TRIG, LOW);
   duration = pulseIn(ECO, HIGH);
   distance = duration / 58.2;//valor especificado por el fabricante
-  //if(distance<7){
-    Serial.println(distance);
-  //}
-    delay(2000);//espero 5 segundos
+  
+  if(distance<10){
+    Serial.println("ocupado");
+  }else{
+    Serial.println("libre");
+  }
+  
+  //Serial.println(distance);
+  delay(5000);//espero 5 segundos
 }

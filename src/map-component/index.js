@@ -1,14 +1,13 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
-import sensorIcon from './sensorIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
+import sensorIcon from './sensorIcon.png';
 import privadoTechadoIcon from './privadoTechadoIcon.png';
 import motoIcon from './motoIcon.png';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import Legend from './legend.js';
-//import io from 'socket.io-client';
-
+import App from '../App';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -24,12 +23,12 @@ class MapComponent extends React.Component {
         { lato: -34.615270, lngo: -58.381675, latd: -34.617096, lngd: -58.381613 } 
       ],        
       arduinos: [
-        {latitude: -34.590319, longitude: -58.382822},
-        {latitude: -34.590947, longitude: -58.384296},
-        {latitude: -34.591049, longitude: -58.384127},
-        {latitude: -34.591146, longitude: -58.384395},
-        {latitude: -34.591552, longitude: -58.384199},
-        {latitude: -34.590371, longitude: -58.382553},
+        {latitude: -34.617247, longitude: -58.383013, idSensor: 1},
+        {latitude: -34.590947, longitude: -58.384296, idSensor: 2},
+        {latitude: -34.591049, longitude: -58.384127, idSensor: 3},
+        {latitude: -34.591146, longitude: -58.384395, idSensor: 4},
+        {latitude: -34.591552, longitude: -58.384199, idSensor: 5},
+        {latitude: -34.590371, longitude: -58.382553, idSensor: 6},
       ],      
       privados: [
         {title:'APART CAR INDEPENDENCIA', latitude: -34.617852, longitude: -58.384709},
@@ -140,12 +139,13 @@ class MapComponent extends React.Component {
 
   displaySensores = () => {
     return this.state.arduinos.map((store, index) => {
-      return <Marker key={index} id={index} position={{
+      return <Marker key={store.idSensor} id={store.idSensor} position={{
         lat: store.latitude,
         lng: store.longitude
       }} icon={sensorIcon}
       onClick={() => {}}
-      />
+      >
+          </Marker>
     })
   }
   
@@ -172,7 +172,6 @@ class MapComponent extends React.Component {
         lat: priva.latitude,
         lng: priva.longitude
       }} 
-      visible={true}
       icon={privadoIcon}
       onClick={this.onMarkerClick}
       name={priva.title}
@@ -187,7 +186,6 @@ class MapComponent extends React.Component {
         lat: privaTech.latitude,
         lng: privaTech.longitude
       }} 
-      visible={true}
       icon={privadoTechadoIcon}
       onClick={this.onMarkerClick}
       name={privaTech.title + '\n Precio: $' + privaTech.precio}
@@ -260,8 +258,10 @@ onClose = props => {
           </div>
           </InfoWindow>
 
+          <App>
+          </App>
+          
           <Legend>
-            
           </Legend>
 
       </Map>
