@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
 import sensorIcon from './sensorIcon.png';
+import sensorDisponibleIcon from './sensorDisponibleIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
 import motoIcon from './motoIcon.png';
