@@ -20,9 +20,9 @@ void loop() {
   distance = duration / 58.2;//valor especificado por el fabricante
   
   if(distance<10){
-    Serial.println("ocupado");
+    Serial.println("001,ocupado");
   }else{
-    Serial.println("libre");
+    Serial.println("001,libre");
   }
   
   //Serial.println(distance);
