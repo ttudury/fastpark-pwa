@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import App from '../App.js';
 
 class PlazaApp extends React.Component {
 
@@ -37,11 +38,12 @@ class PlazaApp extends React.Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          <MapComponent />
+          <App>            
+          </App>
           <div>
             <br></br>
           </div>
-           <PlazaList listado={this.state.plazas} />  
+           {/* <PlazaList listado={this.state.plazas} />   */}
         </div>
       )
     } else {

@@ -4,10 +4,10 @@ import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
 import sensorIcon from './sensorIcon.png';
 import privadoTechadoIcon from './privadoTechadoIcon.png';
+import sensorDisp from './green-dot.png';
 import motoIcon from './motoIcon.png';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import Legend from './legend.js';
-import App from '../App';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -22,14 +22,14 @@ class MapComponent extends React.Component {
       estacionarRestringido: [
         { lato: -34.615270, lngo: -58.381675, latd: -34.617096, lngd: -58.381613 } 
       ],        
-      arduinos: [
+      arduinosOcu: [
         {latitude: -34.617247, longitude: -58.383013, idSensor: 1},
         {latitude: -34.590947, longitude: -58.384296, idSensor: 2},
         {latitude: -34.591049, longitude: -58.384127, idSensor: 3},
         {latitude: -34.591146, longitude: -58.384395, idSensor: 4},
         {latitude: -34.591552, longitude: -58.384199, idSensor: 5},
         {latitude: -34.590371, longitude: -58.382553, idSensor: 6},
-      ],      
+      ],             
       privados: [
         {title:'APART CAR INDEPENDENCIA', latitude: -34.617852, longitude: -58.384709},
       ],   
@@ -95,7 +95,7 @@ class MapComponent extends React.Component {
       ],
       showingInfoWindow: false,  //Hides or the shows the infoWindow
       activeMarker: {},          //Shows the active marker upon click
-      selectedPlace: {}          //Shows the infoWindow to the selected place upon a marker
+      selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
     }  
   }
   
@@ -117,6 +117,7 @@ class MapComponent extends React.Component {
       
     })
   }
+   
   
   displayRestringidoEstacionar = () => {
     return this.state.estacionarRestringido.map((estRes,index) => {
@@ -137,16 +138,45 @@ class MapComponent extends React.Component {
     })
   }
 
-  displaySensores = () => {
-    return this.state.arduinos.map((store, index) => {
-      return <Marker key={store.idSensor} id={store.idSensor} position={{
-        lat: store.latitude,
-        lng: store.longitude
+  displayOcupados = () => {
+    return this.state.arduinosOcu.map((store, index) => {
+      if(store.idSensor !== this.props.idSensor)
+      {
+        return <Marker 
+          key={index} 
+          id={index} 
+          position={{
+            lat: store.latitude,
+            lng: store.longitude
+          }} 
+          icon={sensorIcon}
+          onClick={() => {}}
+          >
+        </Marker>
+      }else{
+        return <Marker 
+          key={index} 
+          id={index} 
+          position={{
+            lat: store.latitude,
+            lng: store.longitude
+          }} 
+          icon={sensorDisp}
+          onClick={() => {}}
+          >
+        </Marker>
+      }
+    })
+  }
+
+  displayDisponibles = () => {
+    return <Marker key={this.props.idSensor} id={this.props.idSensor} position={{
+        lat: this.props.latitude,
+        lng: this.props.longitude
       }} icon={sensorIcon}
       onClick={() => {}}
       >
           </Marker>
-    })
   }
   
   displayConcesionados = () => {
@@ -241,13 +271,18 @@ onClose = props => {
           <GooglePlacesAutocomplete >
 
           </GooglePlacesAutocomplete>
-          {this.displaySensores()}
+          {this.displayOcupados()}
           {this.displayConcesionados()}
           {this.displayMotocicletas()}
           {this.displayPrivados()}
           {this.displayPrivadosTechados()}
           {this.displayProhibidoEstacionar()}
           {this.displayRestringidoEstacionar()}
+          
+            
+              
+            
+          
           <InfoWindow
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}
@@ -258,8 +293,7 @@ onClose = props => {
           </div>
           </InfoWindow>
 
-          <App>
-          </App>
+            
           
           <Legend>
           </Legend>

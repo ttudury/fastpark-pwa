@@ -1,7 +1,9 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
-import io from "socket.io-client";
 import { Marker } from 'google-maps-react';
-import privadoIcon from './map-component/privadoIcon.png';
+import io from "socket.io-client";
+import MapComponent from "./map-component";
+import sensorIcon from "./map-component/sensorIcon.png";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -35,17 +37,16 @@ function App() {
   const subscribeToDateEvent = (interval = 5000) => {
     socket.emit('subscribeToDateEvent', interval);
   }
-
-  //const marker = document.getElementById("1");
   
-  console.log(document.getElementsByTagName('*'));
-
-  if(dt == 'libre'){
-    //marker.setState('icon', 'privadoIcon')
-  }else{
-    //marker.setIcon();
-  }
-  return null;
+  if(new String(dt) == "001,libre"){
+    return (<MapComponent latitude={-34.617247} longitude={-58.383013} idSensor={1}></MapComponent>);
+    }else{
+      if(new String(dt) == "001,ocupado"){
+        return (<MapComponent></MapComponent>);
+      }else{
+        return null;
+      }
+    }
 }
 
 export default App;

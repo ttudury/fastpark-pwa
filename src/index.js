@@ -7,7 +7,8 @@ import PlazaApp from './plaza-app';
 
 //ReactDOM.render(<PlazaApp />, document.getElementById('root'));
 ReactDOM.render(
-  <PlazaApp></PlazaApp>,
+  <PlazaApp>
+  </PlazaApp>,
     document.getElementById('root')
   );
 
