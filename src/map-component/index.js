@@ -229,7 +229,7 @@ onClose = props => {
         fullscreenControl={false}
         mapTypeControl={false}
       >
-          <GooglePlacesAutocomplete>
+          <GooglePlacesAutocomplete >
 
           </GooglePlacesAutocomplete>
           {this.displaySensores()}
