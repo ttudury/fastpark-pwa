@@ -75,7 +75,7 @@ class MapComponent extends React.Component {
           this.setState({ concesionados: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8000/api/viapublica')
+      fetch('http://127.0.0.1:8000/api/viapublica/pro')
         .then((response) => {
           console.log(response)
           return response.json()
@@ -84,6 +84,16 @@ class MapComponent extends React.Component {
           console.log(jsonResponse)
           this.setState({ estacionarRestringido: jsonResponse })
         })
+
+      fetch('http://127.0.0.1:8000/api/viapublica/lib')
+        .then((response) => {
+          console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          console.log(jsonResponse)
+          this.setState({ estacionarPermitido: jsonResponse })
+        })
   }
   
   displayProhibidoEstacionar = () => {
@@ -91,7 +101,7 @@ class MapComponent extends React.Component {
       return this.state.estacionarProhibido.map((estPro,index) => {
         return <Polyline key={index} id={index}  
                   options={{ 
-                    strokeColor: "#ed5457" 
+                    strokeColor: "#ef8644" 
                   }}
                   path={estPro.codigo}
 
@@ -119,7 +129,7 @@ class MapComponent extends React.Component {
                 options={{ 
                   strokeColor: "#22c1af" 
                 }}
-                path={estPer.codigo}
+                path={JSON.parse(estPer.codigo)}
             />
       
     })
