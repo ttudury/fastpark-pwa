@@ -15,7 +15,7 @@ class PlazaApp extends React.Component {
   render() {
       return (
         <div class="float-container">
-          <div class="float-child appBar">
+          <div class="float-child appBar" overflow="hidden">
           <AppBar >
             <Toolbar>
               <Typography variant="h6" >
