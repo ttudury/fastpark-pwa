@@ -1,9 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Marker } from 'google-maps-react';
+import loadingGif from './loading.gif'
 import io from "socket.io-client";
 import MapComponent from "./map-component";
-import sensorIcon from "./map-component/sensorIcon.png";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -20,11 +19,11 @@ function App() {
     if (!socket) return;
 
     socket.on('connect', () => {
-      setSocketConnected(socket.connected);
+      setSocketConnected(socketConnected, true);
       subscribeToDateEvent();
     });
     socket.on('disconnect', () => {
-      setSocketConnected(socket.connected);
+      setSocketConnected(socketConnected, false);
     });
 
     socket.on("getDisponibilidad", data => {
@@ -38,15 +37,30 @@ function App() {
     socket.emit('subscribeToDateEvent', interval);
   }
   
-  if(new String(dt) == "001,libre"){
-    return (<MapComponent latitude={-34.617247} longitude={-58.383013} idSensor={1}></MapComponent>);
-    }else{
-      if(new String(dt) == "001,ocupado"){
-        return (<MapComponent></MapComponent>);
-      }else{
-        return null;
-      }
-    }
-}
+  //  if(new String(dt) == "001,libre"){
+  //    return (<MapComponent latitude={-34.617247} longitude={-58.383013} idSensor={1}></MapComponent>);
+  //    }else{
+  //      if(new String(dt) == "001,ocupado"){
+         return (<MapComponent></MapComponent>);
+      //  }else{
+      //    return (
+      //      <div
+      //        style={loadingStyle}>
+      //        <img
+      //          src={loadingGif}
+      //          alt={"loading..."}
+      //          style={loadingStyle}>
+      //        </img>
+      //      </div>);
+       //}
+     //}
+ }
+
+const loadingStyle = {
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
 
 export default App;

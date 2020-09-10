@@ -1,10 +1,10 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
+import sensorIcon from './sensorIcon.png';
+import sensorDisponibleIcon from './sensorDisponibleIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
-import sensorIcon from './sensorIcon.png';
 import privadoTechadoIcon from './privadoTechadoIcon.png';
-import sensorDisp from './green-dot.png';
 import motoIcon from './motoIcon.png';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import Legend from './legend.js';
@@ -16,12 +16,17 @@ class MapComponent extends React.Component {
     //no creo que sean propiedades del componente...
     this.state = {
       estacionarProhibido: [
-        { lato: -34.617601, lngo: -58.381615, latd: -34.617729, lngd: -58.384238 },
-        { lato: -34.617560, lngo: -58.381573, latd: -34.617096, lngd: -58.381613 }
-      ],
+
+      ],    
+
       estacionarRestringido: [
-        { lato: -34.615270, lngo: -58.381675, latd: -34.617096, lngd: -58.381613 } 
-      ],        
+      
+      ],    
+
+      estacionarPermitido: [ 
+
+      ],    
+
       arduinosOcu: [
         {latitude: -34.617247, longitude: -58.383013, idSensor: 1},
         {latitude: -34.590947, longitude: -58.384296, idSensor: 2},
@@ -100,39 +105,39 @@ class MapComponent extends React.Component {
   }
   
   displayProhibidoEstacionar = () => {
-    return this.state.estacionarProhibido.map((estPro,index) => {
+    
+      return this.state.estacionarProhibido.map((estPro,index) => {
+        return <Polyline key={index} id={index}  
+                  options={{ 
+                    strokeColor: " #FF0000 " 
+                  }}
+                  path={estPro.coords}
+
+              />
+        
+      })
+  }
+  
+  displayRestringidoEstacionar = () => {
+
+    return this.state.estacionarRestringido.map((estRes,index) => {
       return <Polyline key={index} id={index}  
                 options={{ 
-                  strokeColor: " #FF0000 " 
+                  strokeColor: " #0000FF " 
                 }}
-                path={[{
-                  lat: estPro.lato,
-                  lng: estPro.lngo
-                },
-                { lat: estPro.latd,
-                  lng: estPro.lngd
-                }]
-              }
+                path={estRes.coords}
             />
       
     })
   }
-   
   
-  displayRestringidoEstacionar = () => {
-    return this.state.estacionarRestringido.map((estRes,index) => {
+  displayPermitidoEstacionar = () => {
+    return this.state.estacionarPermitido.map((estPer,index) => {
       return <Polyline key={index} id={index}  
                 options={{ 
-                  strokeColor: " #FFF93D " 
+                  strokeColor: " #00FF00 " 
                 }}
-                path={[{
-                  lat: estRes.lato,
-                  lng: estRes.lngo
-                },
-                { lat: estRes.latd,
-                  lng: estRes.lngd
-                }]
-              }
+                path={estPer.coords}
             />
       
     })
@@ -161,7 +166,7 @@ class MapComponent extends React.Component {
             lat: store.latitude,
             lng: store.longitude
           }} 
-          icon={sensorDisp}
+          icon={sensorDisponibleIcon}
           onClick={() => {}}
           >
         </Marker>
@@ -278,10 +283,7 @@ onClose = props => {
           {this.displayPrivadosTechados()}
           {this.displayProhibidoEstacionar()}
           {this.displayRestringidoEstacionar()}
-          
-            
-              
-            
+          {this.displayPermitidoEstacionar()}
           
           <InfoWindow
             marker={this.state.activeMarker}

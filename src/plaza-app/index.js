@@ -1,6 +1,5 @@
 import React from 'react'
-import PlazaList from '../plaza-list'
-import MapComponent from '../map-component';
+import PlazaList from '../plaza-list';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -47,7 +46,7 @@ class PlazaApp extends React.Component {
         </div>
       )
     } else {
-      return <p className="text-center">Cargando plazas...</p>
+      return null;
     }
   }
 
