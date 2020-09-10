@@ -70,9 +70,9 @@ class MapComponent extends React.Component {
           console.log(response)
           return response.json()
         })
-        .then((restringidos) => {
-          console.log(restringidos)
-          this.setState({ concesionados: restringidos })
+        .then((jsonResponse) => {
+          console.log(jsonResponse)
+          this.setState({ concesionados: jsonResponse })
         })
 
       fetch('http://127.0.0.1:8000/api/viapublica')
@@ -80,9 +80,9 @@ class MapComponent extends React.Component {
           console.log(response)
           return response.json()
         })
-        .then((restringidos) => {
-          console.log(restringidos)
-          this.setState({ estacionarRestringido: restringidos })
+        .then((jsonResponse) => {
+          console.log(jsonResponse)
+          this.setState({ estacionarRestringido: jsonResponse })
         })
   }
   
