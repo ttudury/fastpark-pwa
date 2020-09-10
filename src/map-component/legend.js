@@ -45,13 +45,13 @@ class Legend extends React.Component {
             <Button  
             style={buttonCloseStyle}
             title={'cerrar referencias'}
-            onClick={() => this.setState({ hide: !hide })}>x
+            onClick={() => this.setState({ hide: !hide })}> {this.state.hide?  'V' : 'X' }
             </Button>
           </ButtonGroup>
             { showing && !hide
                     ? <div
                       style={referenceStyle}>
-                        <img src={sensorDispoIcon} width={"32"} height={"32"} alt={"Libre"}/>
+                        <img style={imagenStyle} src={sensorDispoIcon} width={"32"} height={"32"} alt={"Libre"}/>
                         Libre
                       </div>
                     : null
@@ -60,7 +60,7 @@ class Legend extends React.Component {
             { showing && !hide
                     ? <div
                       style={referenceStyle}>
-                        <img src={sensorIcon} width={"32"} height={"32"} alt={"Ocupado"}/>
+                        <img style={imagenStyle} src={sensorIcon} width={"32"} height={"32"} alt={"Ocupado"}/>
                         Ocupado
                       </div>
                     : null
@@ -69,7 +69,7 @@ class Legend extends React.Component {
             { showing && !hide
                     ? <div
                       style={referenceStyle}>
-                        <img src={motoIcon} width={"32"} height={"32"} alt={"Cajon Motos"}/>
+                        <img style={imagenStyle} src={motoIcon} width={"32"} height={"32"} alt={"Cajon Motos"}/>
                         Cajon<br></br>
                         Motos
                       </div>
@@ -79,7 +79,7 @@ class Legend extends React.Component {
             { showing && !hide
                     ? <div
                       style={referenceStyle}>
-                        <img src={concecionadoIcon} width={"32"} height={"32"} alt={"Concesionado"}/>
+                        <img style={imagenStyle} src={concecionadoIcon} width={"32"} height={"32"} alt={"Concesionado"}/>
                         Ciudad
                       </div>
                     : null
@@ -88,7 +88,7 @@ class Legend extends React.Component {
             { showing && !hide
                     ? <div
                       style={referenceStyle}>
-                        <img src={privadoIcon} width={"32"} height={"32"} alt={"Privado"}/>
+                        <img style={imagenStyle} src={privadoIcon} width={"32"} height={"32"} alt={"Privado"}/>
                         Privado
                       </div>
                     : null
@@ -97,7 +97,7 @@ class Legend extends React.Component {
             { showing && !hide
                     ? <div
                       style={referenceStyle}>
-                        <img src={privadoTechadoIcon} width={"32"} height={"32"} alt={"Privado Techado"}/>
+                        <img style={imagenStyle} src={privadoTechadoIcon} width={"32"} height={"32"} alt={"Privado Techado"}/>
                         Privado<br></br>
                         Techado
                       </div>
@@ -107,7 +107,7 @@ class Legend extends React.Component {
             { !showing && !hide
                     ? <div
                     style={referenceStyle}>
-                      <img src={rojoIcon} width={"32"} height={"32"} alt={"Prohibido Estacionar"}/>
+                      <img style={imagenStyle} src={rojoIcon} width={"32"} height={"32"} alt={"Prohibido Estacionar"}/>
                       Prohibido<br></br>
                       Estacionar
                     </div>
@@ -117,7 +117,7 @@ class Legend extends React.Component {
             { !showing && !hide
                     ? <div
                     style={referenceStyle}>
-                      <img src={amarilloIcon} width={"32"} height={"32"} alt={"Restringido Estacionar"}/>
+                      <img style={imagenStyle} src={amarilloIcon} width={"32"} height={"32"} alt={"Restringido Estacionar"}/>
                       Restringido<br></br>
                       Estacionar
                     </div>
@@ -127,7 +127,7 @@ class Legend extends React.Component {
             { !showing && !hide
                     ? <div
                     style={referenceStyle}>
-                      <img src={verdeIcon} width={"32"} height={"32"} alt={"Permitido Estacionar"}/>
+                      <img style={imagenStyle} src={verdeIcon} width={"32"} height={"32"} alt={"Permitido Estacionar"}/>
                       Permitido<br></br>
                       Estacionar
                     </div>
@@ -152,7 +152,9 @@ const legendStyle = {
   font: '400 11px Roboto, Arial, sans-serif',
 };
 
-
+const imagenStyle = {
+  marginRight: '12px',
+}
 
 const referenceStyle = {
     position: 'relative',
@@ -160,6 +162,7 @@ const referenceStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'left',
+    marginTop: '4px',
   };
 
   const buttonSwitchStyle = {
@@ -168,6 +171,8 @@ const referenceStyle = {
     fontSize: '15px',
     padding: '1px 8px',
     borderRadius: '5px',
+    marginRight: '13px',
+
   }
 
   const buttonCloseStyle = {
