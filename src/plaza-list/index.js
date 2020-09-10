@@ -11,8 +11,8 @@ class PlazaList extends React.Component {
           {
             this.props.listado.map((plaza) => {
               return <PlazaRow  key={ plaza.id }
-                                nombre={ plaza.nombre }
-                                estado={ '$' + plaza.estado }  
+                                nombre={ plaza.codigo }
+                                estado={ '$' + plaza.nombre }  
                     />
             })
           }

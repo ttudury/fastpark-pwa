@@ -7,6 +7,7 @@ import privadoIcon from './privadoIcon.png';
 import privadoTechadoIcon from './privadoTechadoIcon.png';
 import motoIcon from './motoIcon.png';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 import Legend from './legend.js';
 //import io from 'socket.io-client';
 
@@ -17,6 +18,7 @@ class MapComponent extends React.Component {
 
     //no creo que sean propiedades del componente...
     this.state = {
+      address:"",
       estacionarProhibido: [
         { lato: -34.617601, lngo: -58.381615, latd: -34.617729, lngd: -58.384238 },
         { lato: -34.617560, lngo: -58.381573, latd: -34.617096, lngd: -58.381613 }
@@ -217,14 +219,15 @@ class MapComponent extends React.Component {
     showingInfoWindow: true
   });
 
-onClose = props => {
-  if (this.state.showingInfoWindow) {
-    this.setState({
-      showingInfoWindow: false,
-      activeMarker: null
-    });
-  }
-};
+  onClose = props => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      });
+    }
+  };
+
 
   render() {
     return (
@@ -241,7 +244,7 @@ onClose = props => {
         mapTypeControl={false}
         
       >
-          <GooglePlacesAutocomplete >
+         <GooglePlacesAutocomplete value={this.state.address} >sfsdfsdfsdfsd
 
           </GooglePlacesAutocomplete>
           {this.displaySensores()}
