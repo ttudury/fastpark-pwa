@@ -356,18 +356,19 @@ const styleLoading = {
 const styleDropdown = {
   position:'absolute',
   font: '400 20px Roboto, Arial, sans-serif',
-  top: '32px',
+  width: '95%',
+  top: '30px',
 }
 
 const styleAutocomplete = {
   position:'absolute',
   font: '400 20px Roboto, Arial, sans-serif',
-  width: '100%',
+  width: '94%',
 };
 
 const mapStyles = {
-  width: '100%',
-  height: '100%',
+  width: '95.5%',
+  height: '86%',
 };
 
 
