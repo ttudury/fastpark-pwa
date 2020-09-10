@@ -233,6 +233,7 @@ onClose = props => {
 };
 
 handleChange = address => {
+  this.setState({ address });
 };
 
 handleSelect = address => {
