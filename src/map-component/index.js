@@ -6,12 +6,10 @@ import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
 import privadoTechadoIcon from './privadoTechadoIcon.png';
 import motoIcon from './motoIcon.png';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import Legend from './legend.js';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {
   geocodeByAddress,
-  geocodeByPlaceId,
   getLatLng,
 } from 'react-places-autocomplete';
 
@@ -280,15 +278,15 @@ handleSelect = address => {
         onSelect={this.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div style={styleAutocomplete}>
-            <input
+          <div >
+            <input style={styleAutocomplete}
               {...getInputProps({
                 placeholder: 'A dónde quieres estacionar? ...',
                 className: 'location-search-input',
               })}
             />
-            <div className="autocomplete-dropdown-container">
-              {loading && <div>Loading...</div>}
+            <div className="autocomplete-dropdown-container" style={styleDropdown}>
+              {loading && <div style = {styleLoading} >Loading...</div>}
               {suggestions.map(suggestion => {
                 const className = suggestion.active
                   ? 'suggestion-item--active'
@@ -341,8 +339,20 @@ handleSelect = address => {
   }
 }
 
+const styleLoading = {
+  backgroundColor: '#fafafa',
+}
+
+const styleDropdown = {
+  position:'absolute',
+  font: '400 20px Roboto, Arial, sans-serif',
+  top: '32px',
+}
+
 const styleAutocomplete = {
   position:'absolute',
+  font: '400 20px Roboto, Arial, sans-serif',
+  width: '100%',
 };
 
 const mapStyles = {

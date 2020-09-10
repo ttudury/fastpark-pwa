@@ -1,5 +1,6 @@
 import React from 'react';
 import sensorIcon from './sensorIcon.png';
+import sensorDispoIcon from './sensorDisponibleIcon.png';
 import motoIcon from './motoIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
@@ -50,7 +51,7 @@ class Legend extends React.Component {
             { showing && !hide
                     ? <div
                       style={referenceStyle}>
-                        <img src={sensorIcon} width={"32"} height={"32"} alt={"Libre"}/>
+                        <img src={sensorDispoIcon} width={"32"} height={"32"} alt={"Libre"}/>
                         Libre
                       </div>
                     : null
