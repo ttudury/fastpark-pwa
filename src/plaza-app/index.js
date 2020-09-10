@@ -13,18 +13,8 @@ class PlazaApp extends React.Component {
     this.state = { plazas: [] }
   }
   
-  componentDidMount() {
-    fetch('http://5d93522fe020b300147dac48.mockapi.io/endpoint/plazas')
-      .then((response) => {
-        return response.json()
-      })
-      .then((plazas) => {
-        this.setState({ plazas: plazas })
-      })
-  }
 
   render() {
-    if (this.state.plazas.length > 0) {
       return (
         <div className="container-fluid">
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
@@ -45,9 +35,6 @@ class PlazaApp extends React.Component {
            {/* <PlazaList listado={this.state.plazas} />   */}
         </div>
       )
-    } else {
-      return null;
-    }
   }
 
 }
