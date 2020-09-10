@@ -354,21 +354,25 @@ const styleLoading = {
 }
 
 const styleDropdown = {
-  position:'absolute',
+  position:'fixed',
   font: '400 20px Roboto, Arial, sans-serif',
-  width: '95%',
-  top: '30px',
+  width: '100%',
+  top: '105px',
 }
 
 const styleAutocomplete = {
-  position:'absolute',
+  position:'fixed',
   font: '400 20px Roboto, Arial, sans-serif',
-  width: '94%',
+  alignItems: 'center',
+  width: '99%',
+  left: '0%',
+  right: '1%',
+  top: '70px',
 };
 
 const mapStyles = {
-  width: '95.5%',
-  height: '86%',
+  position:'absolute',
+  bottom:'0px',
 };
 
 

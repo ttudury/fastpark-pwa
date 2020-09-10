@@ -14,16 +14,20 @@ class PlazaApp extends React.Component {
 
   render() {
       return (
-        <div >
-          <AppBar position="static">
+        <div class="float-container">
+          <div class="float-child appBar">
+          <AppBar >
             <Toolbar>
               <Typography variant="h6" >
                 FASTPARK
               </Typography>
             </Toolbar>
           </AppBar>
-          <App>            
-          </App>
+          </div>
+          <div class="float-child map">
+            <App>            
+            </App>
+          </div>
         </div>
       )
   }
