@@ -14,7 +14,7 @@ class PlazaApp extends React.Component {
 
   render() {
       return (
-        <div className="container-fluid">
+        <div >
           <AppBar position="static">
             <Toolbar>
               <Typography variant="h6" >
