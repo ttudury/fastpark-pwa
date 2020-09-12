@@ -493,15 +493,15 @@ handleSelect = address => {
         onSelect={this.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div >
-            <input style={styleAutocomplete}
+          <div>
+            <input style={styleAutocomplete} id="autoComplete"
               {...getInputProps({
-                placeholder: 'A dónde quieres estacionar? ...',
+                placeholder: '¿Dónde quieres estacionar?...',
                 className: 'location-search-input',
               })}
             />
             <div className="autocomplete-dropdown-container" style={styleDropdown}>
-              {loading && <div style = {styleLoading} >Loading...</div>}
+              {loading && <div style = {styleLoading} >Cargando...</div>}
               {suggestions.map(suggestion => {
                 const className = suggestion.active
                   ? 'suggestion-item--active'
@@ -522,6 +522,7 @@ handleSelect = address => {
                 );
               })}
             </div>
+            <label for="autoComplete">¿Dónde quieres estacionar?...</label>
           </div>
         )}
       </PlacesAutocomplete>
@@ -561,7 +562,7 @@ const styleDropdown = {
   font: '400 20px Roboto, Arial, sans-serif',
   width: '100%',
   top: '100px',
-  marginLeft: '-10px',
+  marginLeft: '-8px',
 };
 
 const styleAutocomplete = {
@@ -626,7 +627,7 @@ const legendStyle = {
   borderColor: '#3f51b5',
   margin: '10px',
   padding:'10px',
-  font: '400 11px Roboto, Arial, sans-serif',
+  font: '400 12px Roboto, Arial, sans-serif',
 };
 
 const imagenStyle = {
@@ -640,7 +641,7 @@ const imagenDisableStyle = {
 
 const referenceStyle = {
     position: 'relative',
-    font: '400 11px Roboto, Arial, sans-serif',
+    font: '400 12px Roboto, Arial, sans-serif',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'left',
@@ -659,7 +660,7 @@ const referenceStyle = {
   const buttonCloseStyle = {
     backgroundColor: '#3f51b5',
     color: 'white',
-    fontSize: '10px',
+    fontSize: '12px',
     padding: '1px 8px',
     borderRadius: '5px',
   };
