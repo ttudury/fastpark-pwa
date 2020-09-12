@@ -3,6 +3,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import App from '../App.js';
+import logoFastPark from './logoFastPark2.png';
 
 class PlazaApp extends React.Component {
 
@@ -18,8 +19,12 @@ class PlazaApp extends React.Component {
           <div className="float-child appBar" overflow="hidden">
           <AppBar >
             <Toolbar>
-              <Typography variant="h6" >
-                FASTPARK
+              <img src={logoFastPark}></img>
+              <Typography variant="h6" style={fastStyle}>
+                fast
+              </Typography>
+              <Typography variant="h6" style={parkStyle}>
+                Park
               </Typography>
             </Toolbar>
           </AppBar>
@@ -33,5 +38,14 @@ class PlazaApp extends React.Component {
   }
 
 }
+
+
+const fastStyle = {
+  fontFamily: 'Comfortaa'
+};
+const parkStyle = {
+  fontFamily: 'Comfortaa',
+  fontWeight: 900 
+};
 
 export default PlazaApp
