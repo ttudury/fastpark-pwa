@@ -31,17 +31,16 @@ class MapComponent extends React.Component {
       mostrarRestringido: true,  
       mostrarProhibido: true,  
       mostrarPermitido: true, 
+
       initCenter : {lat:-34.617601,lng:-58.381615},
       center : {},
+
       estacionarProhibido: [],    
-
-      estacionarRestringido: [
-
-      ],    
-
-      estacionarPermitido: [ 
-
-      ],    
+      estacionarRestringido: [],    
+      estacionarPermitido: [],   
+      privados: [],   
+      concesionados:[], 
+      publicosMoto: [], 
 
       arduinosOcu: [
         {latitude: -34.617247, longitude: -58.383013, idSensor: 1},
@@ -51,12 +50,6 @@ class MapComponent extends React.Component {
         {latitude: -34.591552, longitude: -58.384199, idSensor: 5},
         {latitude: -34.590371, longitude: -58.382553, idSensor: 6},
       ],             
-      privados: [
-      ],   
-
-      concesionados:[], 
-
-      publicosMoto: [],
       
       showingInfoWindow: false,  //Hides or the shows the infoWindow
       activeMarker: {},          //Shows the active marker upon click
@@ -473,7 +466,7 @@ handleSelect = address => {
     .then(latLng => 
       this.setState({
         address : address,
-        center:latLng
+        center: latLng,
       }))
     .catch(error => console.error('Error', error));
 };
@@ -561,7 +554,7 @@ handleSelect = address => {
 
 const styleLoading = {
   backgroundColor: '#fafafa',
-}
+};
 
 const styleDropdown = {
   position:'fixed',
@@ -569,7 +562,7 @@ const styleDropdown = {
   width: '100%',
   top: '100px',
   marginLeft: '-10px',
-}
+};
 
 const styleAutocomplete = {
   position:'fixed',
