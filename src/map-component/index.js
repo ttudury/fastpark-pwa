@@ -1,18 +1,19 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
+import { Button, ButtonGroup } from '@material-ui/core';
+import Draggable from 'react-draggable';
+import PlacesAutocomplete from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+//marcas
 import sensorOcupadoIcon from './sensorOcupadoIcon.png';
 import sensorDisponibleIcon from './sensorDisponibleIcon.png';
 import motoIcon from './motoIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
-import rojoIcon from './redLine.png';
-import amarilloIcon from './yellowLine.png';
-import verdeIcon from './greenLine.png';
-import { Button, ButtonGroup } from '@material-ui/core';
-import Draggable from 'react-draggable';
-import PlacesAutocomplete from 'react-places-autocomplete';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import LocalParkingRoundedIcon from '@material-ui/icons/LocalParkingRounded';
+//lineas
+import rojoIcon from './prohibidoLine.png';
+import amarilloIcon from './restringidoLine.png';
+import verdeIcon from './permitidoLine.png';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -159,7 +160,7 @@ class MapComponent extends React.Component {
     return this.state.estacionarPermitido.map((estPer,index) => {
       return <Polyline key={index} id={index}  
                 options={{ 
-                  strokeColor: "#22c1af" 
+                  strokeColor: " #22c1af " 
                 }}
                 path={JSON.parse(estPer.codigo)}
             />
@@ -433,7 +434,7 @@ class MapComponent extends React.Component {
             { !showingInfo && !hideInfo && !mostrarPermitido
                     ? <div
                     style={referenceStyle}>
-                      <img style={imagenStyle} src={verdeIcon} width={"32"} height={"32"} alt={"Permitido Estacionar"} onClick={() => this.setState({ mostrarPermitido: !mostrarPermitido })}/>
+                      <img style={imagenDisableStyle} src={verdeIcon} width={"32"} height={"32"} alt={"Permitido Estacionar"} onClick={() => this.setState({ mostrarPermitido: !mostrarPermitido })}/>
                       Permitido<br></br>
                       Estacionar
                     </div>
@@ -566,24 +567,22 @@ const styleDropdown = {
   position:'fixed',
   font: '400 20px Roboto, Arial, sans-serif',
   width: '100%',
-  top: '110px',
+  top: '100px',
+  marginLeft: '-10px',
 }
 
 const styleAutocomplete = {
   position:'fixed',
   font: '400 20px Roboto, Arial, sans-serif',
-  alignItems: 'center',
   width: '100%',
   top: '70px',
-  margin: '0px',
-  left: '0px',
-  padding:'5px',
+  marginLeft: '-10px',
 };
 
 const mapStyles = {
   position: 'absolute',
   bottom: '0px',
-  overflowX: 'hidden'
+  marginLeft: '-10px',
 };
 
 
