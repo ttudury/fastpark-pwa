@@ -17,6 +17,7 @@
     "react-dom": "^16.13.0",
     "react-draggable": "^4.4.3",
     "react-google-places-autocomplete": "^3.0.0-alpha.1",
+    "react-places-autocomplete": "^7.3.0",
     "react-scripts": "3.4.0",
     "serialport": "^9.0.1",
     "socket.io": "^2.3.0",

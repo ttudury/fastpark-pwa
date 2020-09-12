@@ -68,7 +68,7 @@ class MapComponent extends React.Component {
   
   componentDidMount() {
 
-      fetch('http://127.0.0.1:8000/api/estacionamientos/con')
+      fetch('http://127.0.0.1:8001/api/estacionamientos/con')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -78,7 +78,7 @@ class MapComponent extends React.Component {
           this.setState({ concesionados: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8000/api/estacionamientos/pri')
+      fetch('http://127.0.0.1:8001/api/estacionamientos/pri')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -88,7 +88,7 @@ class MapComponent extends React.Component {
           this.setState({privados: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8000/api/estacionamientos/mot')
+      fetch('http://127.0.0.1:8001/api/estacionamientos/mot')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -98,7 +98,7 @@ class MapComponent extends React.Component {
           this.setState({publicosMoto: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8000/api/viapublica/pro')
+      fetch('http://127.0.0.1:8001/api/viapublica/pro')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -108,7 +108,7 @@ class MapComponent extends React.Component {
           this.setState({ estacionarProhibido: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8000/api/viapublica/res')
+      fetch('http://127.0.0.1:8001/api/viapublica/res')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -118,7 +118,7 @@ class MapComponent extends React.Component {
           this.setState({ estacionarRestringido: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8000/api/viapublica/lib')
+      fetch('http://127.0.0.1:8001/api/viapublica/lib')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -565,7 +565,7 @@ const styleLoading = {
 
 const styleDropdown = {
   position:'fixed',
-  font: '400 20px Roboto, Arial, sans-serif',
+  fontFamily: 'Lato, sans-serif',
   width: '100%',
   top: '100px',
   marginLeft: '-10px',
@@ -573,7 +573,7 @@ const styleDropdown = {
 
 const styleAutocomplete = {
   position:'fixed',
-  font: '400 20px Roboto, Arial, sans-serif',
+  fontFamily: 'Lato, sans-serif',
   width: '100%',
   top: '70px',
   marginLeft: '-10px',
