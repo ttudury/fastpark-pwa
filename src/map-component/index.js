@@ -5,7 +5,6 @@ import sensorDisponibleIcon from './sensorDisponibleIcon.png';
 import motoIcon from './motoIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
-import privadoTechadoIcon from './privadoTechadoIcon.png';
 import rojoIcon from './redLine.png';
 import amarilloIcon from './yellowLine.png';
 import verdeIcon from './greenLine.png';
@@ -13,6 +12,7 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import Draggable from 'react-draggable';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import LocalParkingRoundedIcon from '@material-ui/icons/LocalParkingRounded';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -27,24 +27,12 @@ class MapComponent extends React.Component {
       mostrarMoto: true,  
       mostrarConcesionado: true,  
       mostrarPrivado: true,  
-      mostrarPrivadoTechado: true, 
       mostrarRestringido: true,  
       mostrarProhibido: true,  
       mostrarPermitido: true, 
       initCenter : {lat:-34.617601,lng:-58.381615},
       center : {},
-      estacionarProhibido: [
-        {coords:[{lng:-58.43809176816,lat:-34.6067478318237},{lng:-58.4371565766822,lat:-34.6066129400691}]},
-        {coords:[{lng:-58.4372271362855,lat:-34.6063877395973},{lng:-58.4381939441502,lat:-34.6065324620354}]},
-        {coords:[{lng:-58.4316836434527,lat:-34.6620538940169},{lng:-58.4309565472297,lat:-34.6616542981441},{lng:-58.4308276611087,lat:-34.6615818868494}]},
-        {coords:[{lng:-58.4314916882482,lat:-34.6607568130063},{lng:-58.432329997288,lat:-34.6611394233508},{lng:-58.4324428148821,lat:-34.6611907663045}]},
-        {coords:[{lng:-58.4378970085568,lat:-34.655789185259},{lng:-58.4371502123831,lat:-34.6552070245208}]},
-        {coords:[{lng:-58.4306012434179,lat:-34.6614541592659},{lng:-58.4298365720329,lat:-34.6610243204264},{lng:-58.4297525772956,lat:-34.6609772706904}]},
-        {coords:[{lng:-58.4303784187422,lat:-34.6602196724703},{lng:-58.4312873164829,lat:-34.6606344520022}]},
-        {coords:[{lng:-58.4295579348847,lat:-34.6608691102212},{lng:-58.4287122719839,lat:-34.6603952370089}]},
-        {coords:[{lng:-58.4292028117071,lat:-34.6597134505081},{lng:-58.4292704384849,lat:-34.6597433736358},{lng:-58.4301146252753,lat:-34.6601286252321}]},
-        {coords:[{lng:-58.4284783153956,lat:-34.6602661459395},{lng:-58.4284044241788,lat:-34.6602247618648},{lng:-58.4275082438896,lat:-34.6597232399148}]},
-      ],    
+      estacionarProhibido: [],    
 
       estacionarRestringido: [
 
@@ -63,20 +51,11 @@ class MapComponent extends React.Component {
         {latitude: -34.590371, longitude: -58.382553, idSensor: 6},
       ],             
       privados: [
-        {title:'APART CAR INDEPENDENCIA', latitude: -34.617852, longitude: -58.384709},
       ],   
-      privadosTechados: [
-        {title:'UADE ESTACIONAMIENTO', latitude: -34.617551, longitude: -58.381996, precio: 100},
-      ],
 
       concesionados:[], 
 
-      publicosMoto: [
-        {title:'MONTSERRAT 1', latitude: -34.6088014099784, longitude: -58.3752074695365},
-        {title:'MONTSERRAT 2', latitude: -34.6088342013014, longitude: -58.3756761258011},
-        {title:'SAN NICOLAS 1', latitude: -34.6078650638271, longitude: -58.3751815793154},
-        {title:'UADE', latitude: -34.616809, longitude: -58.381633}, 
-      ],
+      publicosMoto: [],
       
       showingInfoWindow: false,  //Hides or the shows the infoWindow
       activeMarker: {},          //Shows the active marker upon click
@@ -88,33 +67,63 @@ class MapComponent extends React.Component {
   
   componentDidMount() {
 
-      fetch('http://127.0.0.1:8000/api/estacionamientos')
+      fetch('http://127.0.0.1:8000/api/estacionamientos/con')
         .then((response) => {
-          console.log(response)
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          // console.log(jsonResponse)
+          this.setState({ concesionados: jsonResponse })
+        })
+
+      fetch('http://127.0.0.1:8000/api/estacionamientos/pri')
+        .then((response) => {
+          // console.log(response)
           return response.json()
         })
         .then((jsonResponse) => {
           console.log(jsonResponse)
-          this.setState({ concesionados: jsonResponse })
+          this.setState({privados: jsonResponse })
+        })
+
+      fetch('http://127.0.0.1:8000/api/estacionamientos/mot')
+        .then((response) => {
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          // console.log(jsonResponse)
+          this.setState({publicosMoto: jsonResponse })
         })
 
       fetch('http://127.0.0.1:8000/api/viapublica/pro')
         .then((response) => {
-          console.log(response)
+          // console.log(response)
           return response.json()
         })
         .then((jsonResponse) => {
-          console.log(jsonResponse)
+          // console.log(jsonResponse)
+          this.setState({ estacionarProhibido: jsonResponse })
+        })
+
+      fetch('http://127.0.0.1:8000/api/viapublica/res')
+        .then((response) => {
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          // console.log(jsonResponse)
           this.setState({ estacionarRestringido: jsonResponse })
         })
 
       fetch('http://127.0.0.1:8000/api/viapublica/lib')
         .then((response) => {
-          console.log(response)
+          // console.log(response)
           return response.json()
         })
         .then((jsonResponse) => {
-          console.log(jsonResponse)
+          // console.log(jsonResponse)
           this.setState({ estacionarPermitido: jsonResponse })
         })
   }
@@ -124,9 +133,9 @@ class MapComponent extends React.Component {
       return this.state.estacionarProhibido.map((estPro,index) => {
         return <Polyline key={index} id={index}  
                   options={{ 
-                    strokeColor: "#ef8644" 
+                    strokeColor: "#ed5457" 
                   }}
-                  path={estPro.coords}
+                  path={JSON.parse(estPro.codigo)}
 
               />
         
@@ -138,7 +147,7 @@ class MapComponent extends React.Component {
     return this.state.estacionarRestringido.map((estRes,index) => {
       return <Polyline key={index} id={index}  
                 options={{ 
-                  strokeColor: "#ed5457"   //amarillo: #f2d675 //naranja: #ef8644 // rojo: #ed5457 //verde: #22c1af #00da8c // azul: #03a8f8
+                  strokeColor: "#ef8644"   //amarillo: #f2d675 //naranja: #ef8644 // rojo: #ed5457 //verde: #22c1af #00da8c // azul: #03a8f8
                 }}
                 path={JSON.parse(estRes.codigo)}
             />
@@ -215,7 +224,7 @@ class MapComponent extends React.Component {
         }} 
         icon={concecionadoIcon}
         onClick={this.onMarkerClick}
-        name={conce.title}
+        name={conce.nombre}
       >
       </Marker>
     })
@@ -224,26 +233,12 @@ class MapComponent extends React.Component {
   displayPrivados = () => {
     return this.state.privados.map((priva, index) => {
       return <Marker key={index} id={index} position={{
-        lat: priva.latitude,
-        lng: priva.longitude
+        lat: priva.latitud,
+        lng: priva.longitud
       }} 
       icon={privadoIcon}
       onClick={this.onMarkerClick}
-      name={priva.title}
-      >
-      </Marker>
-    })
-  }
-
-  displayPrivadosTechados = () => {
-    return this.state.privadosTechados.map((privaTech, index) => {
-      return <Marker key={index} id={index} position={{
-        lat: privaTech.latitude,
-        lng: privaTech.longitude
-      }} 
-      icon={privadoTechadoIcon}
-      onClick={this.onMarkerClick}
-      name={privaTech.title + '\n Precio: $' + privaTech.precio}
+      name={priva.nombre}
       >
       </Marker>
     })
@@ -252,8 +247,8 @@ class MapComponent extends React.Component {
   displayMotocicletas = () => {
     return this.state.publicosMoto.map((pmoto, index) => {
       return <Marker key={index} id={index} position={{
-        lat: pmoto.latitude,
-        lng: pmoto.longitude
+        lat: pmoto.latitud,
+        lng: pmoto.longitud
       }} icon={ motoIcon }
       onClick={this.onMarkerClick}
       name={pmoto.title}
@@ -270,7 +265,6 @@ class MapComponent extends React.Component {
     const { mostrarMoto } = this.state;
     const { mostrarConcesionado } = this.state;
     const { mostrarPrivado } = this.state;
-    const { mostrarPrivadoTechado } = this.state;
     const { mostrarProhibido } = this.state;
     const { mostrarRestringido } = this.state;
     const { mostrarPermitido } = this.state;
@@ -382,26 +376,6 @@ class MapComponent extends React.Component {
                       style={referenceStyle}>
                         <img style={imagenDisableStyle} src={privadoIcon} width={"32"} height={"32"} alt={"Privado"} onClick={() => this.setState({ mostrarPrivado: !mostrarPrivado })}/>
                         Privado
-                      </div>
-                    : null
-            } 
-
-            { showingInfo && !hideInfo && mostrarPrivadoTechado
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenStyle} src={privadoTechadoIcon} width={"32"} height={"32"} alt={"Privado Techado"} onClick={() => this.setState({ mostrarPrivadoTechado: !mostrarPrivadoTechado })}/>
-                        Privado<br></br>
-                        Techado
-                      </div>
-                    : null
-            } 
-
-            { showingInfo && !hideInfo && !mostrarPrivadoTechado
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenDisableStyle} src={privadoTechadoIcon} width={"32"} height={"32"} alt={"Privado Techado"} onClick={() => this.setState({ mostrarPrivadoTechado: !mostrarPrivadoTechado })}/>
-                        Privado<br></br>
-                        Techado
                       </div>
                     : null
             } 
@@ -561,7 +535,6 @@ handleSelect = address => {
           {this.state.mostrarConcesionado && this.displayConcesionados()}
           {this.state.mostrarMoto && this.displayMotocicletas()}
           {this.state.mostrarPrivado && this.displayPrivados()}
-          {this.state.mostrarPrivadoTechado && this.displayPrivadosTechados()}
           {this.state.mostrarProhibido && this.displayProhibidoEstacionar()}
           {this.state.mostrarRestringido && this.displayRestringidoEstacionar()}
           {this.state.mostrarPermitido && this.displayPermitidoEstacionar()}
