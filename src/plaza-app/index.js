@@ -15,8 +15,8 @@ class PlazaApp extends React.Component {
 
   render() {
       return (
-        <div class="float-container">
-          <div class="float-child appBar" overflow="hidden">
+        <div className="float-container">
+          <div className="float-child appBar" overflow="hidden">
           <AppBar >
             <Toolbar>
               <img src={logoFastPark}></img>
@@ -29,7 +29,7 @@ class PlazaApp extends React.Component {
             </Toolbar>
           </AppBar>
           </div>
-          <div class="float-child map">
+          <div className="float-child map">
             <App>            
             </App>
           </div>

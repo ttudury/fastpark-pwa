@@ -30,7 +30,7 @@ function App() {
       setDt(data);
     });
 
-  }, [socket]);
+  }, [socket, socketConnected]);
 
   // subscribe to socket disponibilidad event
   const subscribeToDateEvent = (interval = 5000) => {
