@@ -12,14 +12,13 @@ class PlazaApp extends React.Component {
     this.state = { plazas: [] }
   }
   
-
   render() {
       return (
         <div className="float-container">
           <div className="float-child appBar" overflow="hidden">
           <AppBar >
             <Toolbar>
-              <img src={logoFastPark}></img>
+              <img src={logoFastPark} alt="fastParkLogo"></img>
               <Typography variant="h6" style={fastStyle}>
                 fast
               </Typography>
