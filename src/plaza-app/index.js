@@ -19,7 +19,7 @@ class PlazaApp extends React.Component {
           <div className="float-child appBar" overflow="hidden">
           <AppBar >
             <Toolbar>
-              <img src={logoFastPark}></img>
+              <img src={logoFastPark} alt="fastParkLogo"></img>
               <Typography variant="h6" style={fastStyle}>
                 fast
               </Typography>

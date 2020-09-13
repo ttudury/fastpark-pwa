@@ -1,19 +1,15 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
-import { Button, ButtonGroup } from '@material-ui/core';
-import Draggable from 'react-draggable';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+//Botones
+import { Container, Button } from 'react-floating-action-button'
 //marcas
 import sensorOcupadoIcon from './sensorOcupadoIcon.png';
 import sensorDisponibleIcon from './sensorDisponibleIcon.png';
 import motoIcon from './motoIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
-//lineas
-import rojoIcon from './prohibidoLine.png';
-import amarilloIcon from './restringidoLine.png';
-import verdeIcon from './permitidoLine.png';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -54,7 +50,8 @@ class MapComponent extends React.Component {
       showingInfoWindow: false,  //Hides or the shows the infoWindow
       activeMarker: {},          //Shows the active marker upon click
       selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
-      showingInfo: true,
+      showingInfoL: true,
+      showingInfoM: true,
       hideInfo: true, 
     }  
   }
@@ -127,7 +124,7 @@ class MapComponent extends React.Component {
       return this.state.estacionarProhibido.map((estPro,index) => {
         return <Polyline key={index} id={index}  
                   options={{ 
-                    strokeColor: "#ed5457" 
+                    strokeColor: " #ed5457 " 
                   }}
                   path={JSON.parse(estPro.codigo)}
 
@@ -141,7 +138,7 @@ class MapComponent extends React.Component {
     return this.state.estacionarRestringido.map((estRes,index) => {
       return <Polyline key={index} id={index}  
                 options={{ 
-                  strokeColor: "#ef8644"   //amarillo: #f2d675 //naranja: #ef8644 // rojo: #ed5457 //verde: #22c1af #00da8c // azul: #03a8f8
+                  strokeColor: " #ef8644 "   //amarillo: #f2d675 //naranja: #ef8644 // rojo: #ed5457 //verde: #22c1af #00da8c // azul: #03a8f8
                 }}
                 path={JSON.parse(estRes.codigo)}
             />
@@ -173,7 +170,6 @@ class MapComponent extends React.Component {
             lng: store.longitude
           }} 
           icon={sensorOcupadoIcon}
-          onClick={() => {}}
           >
         </Marker>
       }else{
@@ -187,7 +183,6 @@ class MapComponent extends React.Component {
               lng: store.longitude
             }} 
             icon={sensorDisponibleIcon}
-            onClick={() => {}}
             >
           </Marker>
         }else{
@@ -251,192 +246,142 @@ class MapComponent extends React.Component {
     })
   }
 
-  displayReferencias = () => {
-    const { showingInfo } = this.state;
-    const { hideInfo } = this.state;
-    const { mostrarDisponible } = this.state;
-    const { mostrarOcupado } = this.state;
-    const { mostrarMoto } = this.state;
-    const { mostrarConcesionado } = this.state;
-    const { mostrarPrivado } = this.state;
+  displayReferenciasLineas = () => {
     const { mostrarProhibido } = this.state;
     const { mostrarRestringido } = this.state;
     const { mostrarPermitido } = this.state;
-    return (
-      <Draggable>
-        <div
-        
-        style={legendStyle}
-        >
-          <ButtonGroup 
-          style={buttonGroupStyle}>
-            <Button  
-            style={buttonSwitchStyle}
-            title={'cambiar referencias'}
-            onClick={() => this.setState({ showingInfo: !showingInfo })}>	
-            ← →
-            </Button>
-            <Button  
-            style={buttonCloseStyle}
-            title={'cerrar referencias'}
-            onClick={() => this.setState({ hideInfo: !hideInfo })}> {this.state.hideInfo?  'V' : 'X' }
-            </Button>
-          </ButtonGroup>
-            { showingInfo && !hideInfo && mostrarDisponible
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenStyle} src={sensorDisponibleIcon} width={"32"} height={"32"} alt={"Libre"} onClick={() => this.setState({ mostrarDisponible: !mostrarDisponible })}/>
-                        Libre
-                      </div>
-                    : null
-            }
 
-            { showingInfo && !hideInfo && !mostrarDisponible
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenDisableStyle} src={sensorDisponibleIcon} width={"32"} height={"32"} alt={"Libre"} onClick={() => this.setState({ mostrarDisponible: !mostrarDisponible })}/>
-                        Libre
-                      </div>
-                    : null
-            }
+    var opacityPro = 1.0;
+    var opacityRes = 1.0;
+    var opacityPer = 1.0;
 
-            { showingInfo && !hideInfo && mostrarOcupado
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenStyle} src={sensorOcupadoIcon} width={"32"} height={"32"} alt={"Ocupado"} onClick={() => this.setState({ mostrarOcupado: !mostrarOcupado })}/>
-                        Ocupado
-                      </div>
-                    : null
-            } 
+    if(mostrarProhibido === false)
+    {
+      opacityPro = 0.4;
+    }
+    if(mostrarRestringido === false)
+    {
+      opacityRes = 0.4;
+    }
+    if(mostrarPermitido === false)
+    {
+      opacityPer = 0.4;
+    }
+    return ( 
+      <Container>
+        <Button
+          styles={{backgroundColor: " #ed5457 ", right: "0px", opacity: opacityPro}} 
+          tooltip="Prohibido Estacionar"
+          onClick={() => this.setState({ mostrarProhibido: !mostrarProhibido })}/>
+        <Button
+          styles={{backgroundColor: " #ef8644 ", right: "0px", opacity: opacityRes}} 
+          tooltip="Restringido Estacionar"
+          onClick={() => this.setState({ mostrarRestringido: !mostrarRestringido })}/>
+        <Button
+          styles={{backgroundColor: " #22c1af ", right: "0px", opacity: opacityPer}} 
+          tooltip="Permitido Estacionar"
+          onClick={() => this.setState({ mostrarPermitido: !mostrarPermitido })}/>
+        <Button
+          styles={{backgroundColor: " #3f51b5 ", right: "0px", fontFamily: 'Comfortaa'}}
+          tooltip="Referencias de Lineas"
+          rotate={true}>
+        Lineas
+        </Button>
+      </Container>);
+}
 
-            { showingInfo && !hideInfo && !mostrarOcupado
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenDisableStyle} src={sensorOcupadoIcon} width={"32"} height={"32"} alt={"Ocupado"} onClick={() => this.setState({ mostrarOcupado: !mostrarOcupado })}/>
-                        Ocupado
-                      </div>
-                    : null
-            } 
+  displayReferenciasMarcas = () => {
+    const { mostrarConcesionado } = this.state;
+    const { mostrarDisponible } = this.state;
+    const { mostrarMoto } = this.state;
+    const { mostrarOcupado } = this.state;
+    const { mostrarPrivado } = this.state;
 
-            { showingInfo && !hideInfo && mostrarMoto
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenStyle} src={motoIcon} width={"32"} height={"32"} alt={"Cajon Motos"} onClick={() => this.setState({ mostrarMoto: !mostrarMoto })}/>
-                        Cajon<br></br>
-                        Motos
-                      </div>
-                    : null
-            } 
+    var opacityCon = 1.0;
+    var opacityDis = 1.0;
+    var opacityMot = 1.0;
+    var opacityOcu = 1.0;
+    var opacityPri = 1.0;
 
-            { showingInfo && !hideInfo && !mostrarMoto
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenDisableStyle} src={motoIcon} width={"32"} height={"32"} alt={"Cajon Motos"} onClick={() => this.setState({ mostrarMoto: !mostrarMoto })}/>
-                        Cajon<br></br>
-                        Motos
-                      </div>
-                    : null
-            } 
-
-            { showingInfo && !hideInfo && mostrarConcesionado
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenStyle} src={concecionadoIcon} width={"32"} height={"32"} alt={"Concesionado"} onClick={() => this.setState({ mostrarConcesionado: !mostrarConcesionado })}/>
-                        Ciudad
-                      </div>
-                    : null
-            } 
-
-            { showingInfo && !hideInfo && !mostrarConcesionado
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenDisableStyle} src={concecionadoIcon} width={"32"} height={"32"} alt={"Concesionado"} onClick={() => this.setState({ mostrarConcesionado: !mostrarConcesionado })}/>
-                        Ciudad
-                      </div>
-                    : null
-            } 
-
-            { showingInfo && !hideInfo && mostrarPrivado
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenStyle} src={privadoIcon} width={"32"} height={"32"} alt={"Privado"} onClick={() => this.setState({ mostrarPrivado: !mostrarPrivado })}/>
-                        Privado
-                      </div>
-                    : null
-            } 
-
-            { showingInfo && !hideInfo && !mostrarPrivado
-                    ? <div
-                      style={referenceStyle}>
-                        <img style={imagenDisableStyle} src={privadoIcon} width={"32"} height={"32"} alt={"Privado"} onClick={() => this.setState({ mostrarPrivado: !mostrarPrivado })}/>
-                        Privado
-                      </div>
-                    : null
-            } 
-
-            { !showingInfo && !hideInfo && mostrarProhibido
-                    ? <div
-                    style={referenceStyle}>
-                      <img style={imagenStyle} src={rojoIcon} width={"32"} height={"32"} alt={"Prohibido Estacionar"} onClick={() => this.setState({ mostrarProhibido: !mostrarProhibido })}/>
-                      Prohibido<br></br>
-                      Estacionar
-                    </div>
-                    : null
-            } 
-
-            { !showingInfo && !hideInfo && !mostrarProhibido
-                    ? <div
-                    style={referenceStyle}>
-                      <img style={imagenDisableStyle} src={rojoIcon} width={"32"} height={"32"} alt={"Prohibido Estacionar"} onClick={() => this.setState({ mostrarProhibido: !mostrarProhibido })}/>
-                      Prohibido<br></br>
-                      Estacionar
-                    </div>
-                    : null
-            } 
-
-            { !showingInfo && !hideInfo && mostrarRestringido
-                    ? <div
-                    style={referenceStyle}>
-                      <img style={imagenStyle} src={amarilloIcon} width={"32"} height={"32"} alt={"Restringido Estacionar"} onClick={() => this.setState({ mostrarRestringido: !mostrarRestringido })}/>
-                      Restringido<br></br>
-                      Estacionar
-                    </div>
-                    : null
-            } 
-
-            { !showingInfo && !hideInfo && !mostrarRestringido
-                    ? <div
-                    style={referenceStyle}>
-                      <img style={imagenDisableStyle} src={amarilloIcon} width={"32"} height={"32"} alt={"Restringido Estacionar"} onClick={() => this.setState({ mostrarRestringido: !mostrarRestringido })}/>
-                      Restringido<br></br>
-                      Estacionar
-                    </div>
-                    : null
-            } 
-
-            { !showingInfo && !hideInfo && mostrarPermitido
-                    ? <div
-                    style={referenceStyle}>
-                      <img style={imagenStyle} src={verdeIcon} width={"32"} height={"32"} alt={"Permitido Estacionar"} onClick={() => this.setState({ mostrarPermitido: !mostrarPermitido })}/>
-                      Permitido<br></br>
-                      Estacionar
-                    </div>
-                    : null
-            } 
-
-            { !showingInfo && !hideInfo && !mostrarPermitido
-                    ? <div
-                    style={referenceStyle}>
-                      <img style={imagenDisableStyle} src={verdeIcon} width={"32"} height={"32"} alt={"Permitido Estacionar"} onClick={() => this.setState({ mostrarPermitido: !mostrarPermitido })}/>
-                      Permitido<br></br>
-                      Estacionar
-                    </div>
-                    : null
-            } 
-
-        </div>
-      </Draggable>
-    );
+    if(mostrarOcupado === false)
+    {
+      opacityOcu = 0.4;
+    }
+    if(mostrarDisponible === false)
+    {
+      opacityDis = 0.4;
+    }
+    if(mostrarConcesionado === false)
+    {
+      opacityCon = 0.4;
+    }
+    if(mostrarMoto === false)
+    {
+      opacityMot = 0.4;
+    }
+    if(mostrarPrivado === false)
+    {
+      opacityPri = 0.4;
+    }
+    return ( 
+      <Container styles={{width:"100px"}}>
+        <Button
+          styles={{right: "40px", opacity: opacityDis}}
+          tooltip="Estacionamiento Disponible">
+          <img 
+            src={sensorDisponibleIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"eDisponible"} 
+            onClick={() => this.setState({ mostrarDisponible: !mostrarDisponible })}/>
+        </Button>
+        <Button
+          styles={{right: "40px", opacity: opacityOcu}}
+          tooltip="Estacionamiento Ocupado">
+          <img 
+            src={sensorOcupadoIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"eOcupado"} 
+            onClick={() => this.setState({ mostrarOcupado: !mostrarOcupado })}/>
+        </Button>  
+        <Button
+          styles={{right: "40px", opacity: opacityCon}}
+          tooltip="Estacionamiento Concesionado">
+          <img 
+            src={concecionadoIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"eConcesionado"} 
+            onClick={() => this.setState({ mostrarConcesionado: !mostrarConcesionado })}/>
+        </Button>      
+        <Button
+          styles={{right: "40px", opacity: opacityMot}}
+          tooltip="Estacionamiento Motos">
+          <img 
+            src={motoIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"eMotos"} 
+            onClick={() => this.setState({ mostrarMoto: !mostrarMoto })}/>
+        </Button>      
+        <Button
+          styles={{right: "40px", opacity: opacityPri}}
+          tooltip="Estacionamiento Privado">
+          <img 
+            src={privadoIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"ePrivado"} 
+            onClick={() => this.setState({ mostrarPrivado: !mostrarPrivado })}/>
+        </Button>
+        <Button
+          styles={{backgroundColor: " #3f51b5 ", right: "40px", fontFamily: 'Comfortaa'}}
+          tooltip="Referencias de Marcas"
+          rotate={true}>
+        Marcas
+        </Button>
+      </Container>);
   }
 
   onMarkerClick = (props, marker, e) =>
@@ -546,8 +491,8 @@ handleSelect = address => {
 
           </InfoWindow>
 
-          {this.displayReferencias()}
-
+          {this.displayReferenciasMarcas()}
+          {this.displayReferenciasLineas()}
       </Map>
     );
   }
@@ -560,6 +505,7 @@ const styleLoading = {
 const styleDropdown = {
   position:'fixed',
   fontFamily: 'Lato, sans-serif',
+  fontSize: '25px',
   width: '100%',
   top: '100px',
   marginLeft: '-8px',
@@ -568,6 +514,7 @@ const styleDropdown = {
 const styleAutocomplete = {
   position:'fixed',
   fontFamily: 'Lato, sans-serif',
+  fontSize: '25px',
   width: '100%',
   top: '70px',
   marginLeft: '-10px',
@@ -616,58 +563,6 @@ const mapTypes = [
     ]
   },
 ];
-
-const legendStyle = {
-  position: 'absolute',
-  style: 'z-index',
-  top: '90px',
-  right: '0px',
-  background: '#ffffff',
-  border: '3px solid',
-  borderColor: '#3f51b5',
-  margin: '10px',
-  padding:'10px',
-  font: '400 12px Roboto, Arial, sans-serif',
-};
-
-const imagenStyle = {
-  marginRight: '12px',
-};
-
-const imagenDisableStyle = {
-  marginRight: '12px',
-  opacity: '0.4',
-};
-
-const referenceStyle = {
-    position: 'relative',
-    font: '400 12px Roboto, Arial, sans-serif',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'left',
-    marginTop: '4px',
-  };
-
-  const buttonSwitchStyle = {
-    backgroundColor: '#3f51b5',
-    color: 'white',
-    fontSize: '15px',
-    padding: '1px 8px',
-    borderRadius: '5px',
-    marginRight: '13px',
-  };
-
-  const buttonCloseStyle = {
-    backgroundColor: '#3f51b5',
-    color: 'white',
-    fontSize: '12px',
-    padding: '1px 8px',
-    borderRadius: '5px',
-  };
-
-  const buttonGroupStyle = {
-    display: 'flex',
-  }; 
 
 export default (
       GoogleApiWrapper({
