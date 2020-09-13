@@ -1,15 +1,15 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
-import sensorIcon from './sensorIcon.png';
+import PlacesAutocomplete from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+//Botones
+import { Container, Button } from 'react-floating-action-button'
+//marcas
+import sensorOcupadoIcon from './sensorOcupadoIcon.png';
 import sensorDisponibleIcon from './sensorDisponibleIcon.png';
+import motoIcon from './motoIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
-import privadoTechadoIcon from './privadoTechadoIcon.png';
-import motoIcon from './motoIcon.png';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import Legend from './legend.js';
-//import io from 'socket.io-client';
-
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -17,137 +17,189 @@ class MapComponent extends React.Component {
 
     //no creo que sean propiedades del componente...
     this.state = {
-      estacionarProhibido: [
-        { lato: -34.617601, lngo: -58.381615, latd: -34.617729, lngd: -58.384238 },
-        { lato: -34.617560, lngo: -58.381573, latd: -34.617096, lngd: -58.381613 }
-      ],
-      estacionarRestringido: [
-        { lato: -34.615270, lngo: -58.381675, latd: -34.617096, lngd: -58.381613 } 
-      ],        
-      arduinos: [
-        {latitude: -34.590319, longitude: -58.382822},
-        {latitude: -34.590947, longitude: -58.384296},
-        {latitude: -34.591049, longitude: -58.384127},
-        {latitude: -34.591146, longitude: -58.384395},
-        {latitude: -34.591552, longitude: -58.384199},
-        {latitude: -34.590371, longitude: -58.382553},
-      ],      
-      privados: [
-        {title:'APART CAR INDEPENDENCIA', latitude: -34.617852, longitude: -58.384709},
-      ],   
-      privadosTechados: [
-        {title:'UADE ESTACIONAMIENTO', latitude: -34.617551, longitude: -58.381996, precio: 100},
-      ],
-      concesionados: [
-        {title:'FACULTAD DE DERECHO', latitude: -34.5839065037098, longitude: -58.3893432777092},
-        {title:'9 DE JULIO E/ SANTA FE Y JUNCAL', latitude: -34.5942429275099, longitude: -58.3822241278499},
-        {title:'OBELISCO NORTE', latitude: -34.6049740506335, longitude: -58.3815264680298},
-        {title:'9 DE JULIO Y LAVALLE', latitude: -34.6025555991402, longitude: -58.3817046392993},
-        {title:'9 DE JULIO ENTRE BELGRANO Y MÉXICO', latitude: -34.6142383028654, longitude: -58.3810538657793},
-        {title:'CÓRDOBA', latitude: -34.5988120739609, longitude: -58.3768335380658},
-        {title:'9 DE JULIO Y POSADAS', latitude: -34.5901193920996, longitude: -58.3818577239264},
-        {title:'CENTRO CULTURAL SAN MARTÍN', latitude: -34.6053017619723, longitude: -58.3883982290444},
-        {title:'CONGRESO ENTRE RIOS E YRIGOYEN', latitude: -34.6097448426629, longitude: -58.3906763293045},
-        {title:'PLAZA VICENTE LÓPEZ Y PLANES', latitude: -34.5938840693099, longitude: -58.3893862282885},
-        {title:'JUNÍN 1801', latitude: -34.5881551626016, longitude: -58.3921863339241},
-        {title:'CHACARITA', latitude: -34.5876758533793, longitude: -58.4537806222482},
-        {title:'PLAZA LIBERTAD', latitude: -34.5974450330616, longitude: -58.383433815367},
-        {title:'BOUCHARD', latitude: -34.6048635854679, longitude: -58.3693426945794},
-        {title:'CORRIENTES', latitude: -34.6033874766919, longitude: -58.3729490613377},
-        {title:'PLAZA LAVALLE', latitude: -34.600906346436, longitude: -58.3846107162697},
-        {title:'PLAZA SAN MARTÍN', latitude: -34.5960485022218, longitude: -58.3760801047069},
-        {title:'EX HOSPITAL DE CLÍNICAS', latitude: -34.5991447835614, longitude: -58.3980691525686},
-        {title:'CHARCAS', latitude: -34.5902999319952, longitude: -58.4143487446419},
-        {title:'JUNÍN', latitude: -34.587750294933, longitude: -58.3918759816293},
-        {title:'PLAZA ITALIA', latitude: -34.5798241385515, longitude: -58.420388011261},
-        {title:'JEAN JAURES 371', latitude: -34.6057609822549, longitude: -58.4094547611295},
-        {title:'JEAN JAURES 380', latitude: -34.6057100321443, longitude: -58.4097757781272},
-        {title:'SARMIENTO 2977', latitude: -34.6065449050004, longitude: -58.4083425553849},
-        {title:'CONGRESO', latitude: -34.6113124399559, longitude: -58.3905953753784},
-        {title:'CIENCIAS ECONÓMICAS', latitude: -34.6012154483074, longitude: -58.3991454586895},
-        {title:'LAS CAÑITAS', latitude: -34.5716460909337, longitude: -58.431594785396},
-        {title:'MICROCENTRO I', latitude: -34.6063068099564, longitude: -58.3791859528237},
-        {title:'MICROCENTRO II', latitude: -34.6035365918109, longitude: -58.3764361823714},
-        {title:'MICROCENTRO III', latitude: -34.6032059161601, longitude: -58.3779749173645},
-        {title:'MONSERRAT', latitude: -34.6134387423109, longitude: -58.3835977697404},
-        {title:'MONSERRAT II', latitude: -34.6127038181794, longitude: -58.3819642999537},
-        {title:'NÚÑEZ', latitude: -34.5541231303653, longitude: -58.4532747547353},
-        {title:'ONCE', latitude: -34.6035371765949, longitude: -58.4016811914228},
-        {title:'ONCE II', latitude: -34.6052067750214, longitude: -58.4008957684547},
-        {title:'ONCE LARREA', latitude: -34.6029767021, longitude: -58.4023934614971},
-        {title:'PALERMO I', latitude: -34.5781075867697, longitude: -58.4130110333512},
-        {title:'PALERMO II', latitude: -34.5787769641621, longitude: -58.4190287601834},
-        {title:'PALERMO SOHO', latitude: -34.5890400047728, longitude: -58.4269219392178},
-        {title:'PASEO LA PLAZA', latitude: -34.6044011609783, longitude: -58.3899866404047},
-        {title:'PUERTO MADERO I', latitude: -34.6058406195889, longitude: -58.3671996698395},
-        {title:'PUERTO MADERO IV', latitude: -34.6138724287822, longitude: -58.3664012115647},
-        {title:'PUERTO MADERO V', latitude: -34.6157073107161, longitude: -58.3662039906788},
-        {title:'PUERTO MADERO VI', latitude: -34.6177238141303, longitude: -58.3659838826878},
-        {title:'PUERTO MADERO VII', latitude: -34.6194420327484, longitude: -58.3657994950924},
-        {title:'RECOLETA I', latitude: -34.596209106822, longitude: -58.3843684841608},
-        {title:'RECOLETA II', latitude: -34.5959394021743, longitude: -58.4000960707858},
-        {title:'RETIRO', latitude: -34.596915758812, longitude: -58.3743730400554},
-        {title:'CONGRESO II', latitude: -34.6077697202218, longitude: -58.3875916901254},
-      ],      
-      publicosMoto: [
-        {title:'MONTSERRAT 1', latitude: -34.6088014099784, longitude: -58.3752074695365},
-        {title:'MONTSERRAT 2', latitude: -34.6088342013014, longitude: -58.3756761258011},
-        {title:'SAN NICOLAS 1', latitude: -34.6078650638271, longitude: -58.3751815793154},
-        {title:'UADE', latitude: -34.616809, longitude: -58.381633}, 
-      ],
+      address: '' ,
+
+      mostrarOcupado: true,  
+      mostrarDisponible: true, 
+      mostrarMoto: true,  
+      mostrarConcesionado: true,  
+      mostrarPrivado: true,  
+      mostrarRestringido: true,  
+      mostrarProhibido: true,  
+      mostrarPermitido: true, 
+
+      initCenter : {lat:-34.617601,lng:-58.381615},
+      center : {},
+
+      estacionarProhibido: [],    
+      estacionarRestringido: [],    
+      estacionarPermitido: [],   
+      privados: [],   
+      concesionados:[], 
+      publicosMoto: [], 
+
+      arduinosOcu: [
+        {latitude: -34.617247, longitude: -58.383013, idSensor: 1},
+        {latitude: -34.590947, longitude: -58.384296, idSensor: 2},
+        {latitude: -34.591049, longitude: -58.384127, idSensor: 3},
+        {latitude: -34.591146, longitude: -58.384395, idSensor: 4},
+        {latitude: -34.591552, longitude: -58.384199, idSensor: 5},
+        {latitude: -34.590371, longitude: -58.382553, idSensor: 6},
+      ],             
+      
       showingInfoWindow: false,  //Hides or the shows the infoWindow
       activeMarker: {},          //Shows the active marker upon click
-      selectedPlace: {}          //Shows the infoWindow to the selected place upon a marker
+      selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
+      showingInfoL: true,
+      showingInfoM: true,
+      hideInfo: true, 
     }  
   }
   
+  componentDidMount() {
+
+      fetch('http://127.0.0.1:8001/api/estacionamientos/con')
+        .then((response) => {
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          // console.log(jsonResponse)
+          this.setState({ concesionados: jsonResponse })
+        })
+
+      fetch('http://127.0.0.1:8001/api/estacionamientos/pri')
+        .then((response) => {
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          console.log(jsonResponse)
+          this.setState({privados: jsonResponse })
+        })
+
+      fetch('http://127.0.0.1:8001/api/estacionamientos/mot')
+        .then((response) => {
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          // console.log(jsonResponse)
+          this.setState({publicosMoto: jsonResponse })
+        })
+
+      fetch('http://127.0.0.1:8001/api/viapublica/pro')
+        .then((response) => {
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          // console.log(jsonResponse)
+          this.setState({ estacionarProhibido: jsonResponse })
+        })
+
+      fetch('http://127.0.0.1:8001/api/viapublica/res')
+        .then((response) => {
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          // console.log(jsonResponse)
+          this.setState({ estacionarRestringido: jsonResponse })
+        })
+
+      fetch('http://127.0.0.1:8001/api/viapublica/lib')
+        .then((response) => {
+          // console.log(response)
+          return response.json()
+        })
+        .then((jsonResponse) => {
+          // console.log(jsonResponse)
+          this.setState({ estacionarPermitido: jsonResponse })
+        })
+  }
+  
   displayProhibidoEstacionar = () => {
-    return this.state.estacionarProhibido.map((estPro,index) => {
+    
+      return this.state.estacionarProhibido.map((estPro,index) => {
+        return <Polyline key={index} id={index}  
+                  options={{ 
+                    strokeColor: " #ed5457 " 
+                  }}
+                  path={JSON.parse(estPro.codigo)}
+
+              />
+        
+      })
+  }
+  
+  displayRestringidoEstacionar = () => {
+
+    return this.state.estacionarRestringido.map((estRes,index) => {
       return <Polyline key={index} id={index}  
                 options={{ 
-                  strokeColor: " #FF0000 " 
+                  strokeColor: " #ef8644 "   //amarillo: #f2d675 //naranja: #ef8644 // rojo: #ed5457 //verde: #22c1af #00da8c // azul: #03a8f8
                 }}
-                path={[{
-                  lat: estPro.lato,
-                  lng: estPro.lngo
-                },
-                { lat: estPro.latd,
-                  lng: estPro.lngd
-                }]
-              }
+                path={JSON.parse(estRes.codigo)}
             />
       
     })
   }
   
-  displayRestringidoEstacionar = () => {
-    return this.state.estacionarRestringido.map((estRes,index) => {
+  displayPermitidoEstacionar = () => {
+    return this.state.estacionarPermitido.map((estPer,index) => {
       return <Polyline key={index} id={index}  
                 options={{ 
-                  strokeColor: " #FFF93D " 
+                  strokeColor: " #22c1af " 
                 }}
-                path={[{
-                  lat: estRes.lato,
-                  lng: estRes.lngo
-                },
-                { lat: estRes.latd,
-                  lng: estRes.lngd
-                }]
-              }
+                path={JSON.parse(estPer.codigo)}
             />
       
     })
   }
 
-  displaySensores = () => {
-    return this.state.arduinos.map((store, index) => {
-      return <Marker key={index} id={index} position={{
-        lat: store.latitude,
-        lng: store.longitude
-      }} icon={sensorIcon}
-      onClick={() => {}}
-      />
+  displayOcupados = () => {
+    return this.state.arduinosOcu.map((store, index) => {
+      if(store.idSensor !== this.props.idSensor && this.state.mostrarOcupado === true)
+      {
+        return <Marker 
+          key={index} 
+          id={index} 
+          position={{
+            lat: store.latitude,
+            lng: store.longitude
+          }} 
+          icon={sensorOcupadoIcon}
+          >
+        </Marker>
+      }else{
+        if(store.idSensor === this.props.idSensor && this.state.mostrarDisponible === true)
+        {
+          return <Marker 
+            key={index} 
+            id={index} 
+            position={{
+              lat: store.latitude,
+              lng: store.longitude
+            }} 
+            icon={sensorDisponibleIcon}
+            >
+          </Marker>
+        }else{
+          return null;
+        }
+      }
     })
+  }
+
+  displayDisponibles = () => {
+    return <Marker key={this.props.idSensor} id={this.props.idSensor} position={{
+        lat: this.props.latitude,
+        lng: this.props.longitude
+      }} icon={sensorOcupadoIcon}
+      onClick={() => {}}
+      >
+          </Marker>
   }
   
   displayConcesionados = () => {
@@ -156,12 +208,12 @@ class MapComponent extends React.Component {
         key={index} 
         id={index} 
         position={{
-          lat: conce.latitude,
-          lng: conce.longitude
+          lat: conce.latitud,
+          lng: conce.longitud
         }} 
         icon={concecionadoIcon}
         onClick={this.onMarkerClick}
-        name={conce.title}
+        name={conce.nombre}
       >
       </Marker>
     })
@@ -170,28 +222,12 @@ class MapComponent extends React.Component {
   displayPrivados = () => {
     return this.state.privados.map((priva, index) => {
       return <Marker key={index} id={index} position={{
-        lat: priva.latitude,
-        lng: priva.longitude
+        lat: priva.latitud,
+        lng: priva.longitud
       }} 
-      visible={true}
       icon={privadoIcon}
       onClick={this.onMarkerClick}
-      name={priva.title}
-      >
-      </Marker>
-    })
-  }
-
-  displayPrivadosTechados = () => {
-    return this.state.privadosTechados.map((privaTech, index) => {
-      return <Marker key={index} id={index} position={{
-        lat: privaTech.latitude,
-        lng: privaTech.longitude
-      }} 
-      visible={true}
-      icon={privadoTechadoIcon}
-      onClick={this.onMarkerClick}
-      name={privaTech.title + '\n Precio: $' + privaTech.precio}
+      name={priva.nombre}
       >
       </Marker>
     })
@@ -200,14 +236,152 @@ class MapComponent extends React.Component {
   displayMotocicletas = () => {
     return this.state.publicosMoto.map((pmoto, index) => {
       return <Marker key={index} id={index} position={{
-        lat: pmoto.latitude,
-        lng: pmoto.longitude
+        lat: pmoto.latitud,
+        lng: pmoto.longitud
       }} icon={ motoIcon }
       onClick={this.onMarkerClick}
       name={pmoto.title}
       >
       </Marker>
     })
+  }
+
+  displayReferenciasLineas = () => {
+    const { mostrarProhibido } = this.state;
+    const { mostrarRestringido } = this.state;
+    const { mostrarPermitido } = this.state;
+
+    var opacityPro = 1.0;
+    var opacityRes = 1.0;
+    var opacityPer = 1.0;
+
+    if(mostrarProhibido === false)
+    {
+      opacityPro = 0.4;
+    }
+    if(mostrarRestringido === false)
+    {
+      opacityRes = 0.4;
+    }
+    if(mostrarPermitido === false)
+    {
+      opacityPer = 0.4;
+    }
+    return ( 
+      <Container>
+        <Button
+          styles={{backgroundColor: " #ed5457 ", right: "0px", opacity: opacityPro}} 
+          tooltip="Prohibido Estacionar"
+          onClick={() => this.setState({ mostrarProhibido: !mostrarProhibido })}/>
+        <Button
+          styles={{backgroundColor: " #ef8644 ", right: "0px", opacity: opacityRes}} 
+          tooltip="Restringido Estacionar"
+          onClick={() => this.setState({ mostrarRestringido: !mostrarRestringido })}/>
+        <Button
+          styles={{backgroundColor: " #22c1af ", right: "0px", opacity: opacityPer}} 
+          tooltip="Permitido Estacionar"
+          onClick={() => this.setState({ mostrarPermitido: !mostrarPermitido })}/>
+        <Button
+          styles={{backgroundColor: " #3f51b5 ", right: "0px", fontFamily: 'Comfortaa'}}
+          tooltip="Referencias de Lineas"
+          rotate={true}>
+        Lineas
+        </Button>
+      </Container>);
+}
+
+  displayReferenciasMarcas = () => {
+    const { mostrarConcesionado } = this.state;
+    const { mostrarDisponible } = this.state;
+    const { mostrarMoto } = this.state;
+    const { mostrarOcupado } = this.state;
+    const { mostrarPrivado } = this.state;
+
+    var opacityCon = 1.0;
+    var opacityDis = 1.0;
+    var opacityMot = 1.0;
+    var opacityOcu = 1.0;
+    var opacityPri = 1.0;
+
+    if(mostrarOcupado === false)
+    {
+      opacityOcu = 0.4;
+    }
+    if(mostrarDisponible === false)
+    {
+      opacityDis = 0.4;
+    }
+    if(mostrarConcesionado === false)
+    {
+      opacityCon = 0.4;
+    }
+    if(mostrarMoto === false)
+    {
+      opacityMot = 0.4;
+    }
+    if(mostrarPrivado === false)
+    {
+      opacityPri = 0.4;
+    }
+    return ( 
+      <Container styles={{width:"100px"}}>
+        <Button
+          styles={{right: "40px", opacity: opacityDis}}
+          tooltip="Estacionamiento Disponible">
+          <img 
+            src={sensorDisponibleIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"eDisponible"} 
+            onClick={() => this.setState({ mostrarDisponible: !mostrarDisponible })}/>
+        </Button>
+        <Button
+          styles={{right: "40px", opacity: opacityOcu}}
+          tooltip="Estacionamiento Ocupado">
+          <img 
+            src={sensorOcupadoIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"eOcupado"} 
+            onClick={() => this.setState({ mostrarOcupado: !mostrarOcupado })}/>
+        </Button>  
+        <Button
+          styles={{right: "40px", opacity: opacityCon}}
+          tooltip="Estacionamiento Concesionado">
+          <img 
+            src={concecionadoIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"eConcesionado"} 
+            onClick={() => this.setState({ mostrarConcesionado: !mostrarConcesionado })}/>
+        </Button>      
+        <Button
+          styles={{right: "40px", opacity: opacityMot}}
+          tooltip="Estacionamiento Motos">
+          <img 
+            src={motoIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"eMotos"} 
+            onClick={() => this.setState({ mostrarMoto: !mostrarMoto })}/>
+        </Button>      
+        <Button
+          styles={{right: "40px", opacity: opacityPri}}
+          tooltip="Estacionamiento Privado">
+          <img 
+            src={privadoIcon} 
+            width={"32"} 
+            height={"32"} 
+            alt={"ePrivado"} 
+            onClick={() => this.setState({ mostrarPrivado: !mostrarPrivado })}/>
+        </Button>
+        <Button
+          styles={{backgroundColor: " #3f51b5 ", right: "40px", fontFamily: 'Comfortaa'}}
+          tooltip="Referencias de Marcas"
+          rotate={true}>
+        Marcas
+        </Button>
+      </Container>);
   }
 
   onMarkerClick = (props, marker, e) =>
@@ -226,6 +400,22 @@ onClose = props => {
   }
 };
 
+handleChange = address => {
+  this.setState({ address });
+};
+
+handleSelect = address => {
+  console.log(address);
+  geocodeByAddress(address)
+    .then(results => getLatLng(results[0]))
+    .then(latLng => 
+      this.setState({
+        address : address,
+        center: latLng,
+      }))
+    .catch(error => console.error('Error', error));
+};
+
   render() {
     return (
       <Map
@@ -233,46 +423,107 @@ onClose = props => {
         zoom={16}
         style={mapStyles}
         styles={mapTypes}
-        initialCenter={{ lat: -34.617601, lng: -58.381615 }}            
+        initialCenter={this.state.initCenter}            
         scaleControl={false}
         zoomControl={false}
         streetViewControl={false}
         fullscreenControl={false}
         mapTypeControl={false}
+        center={this.state.center}
         
       >
-          <GooglePlacesAutocomplete >
-
-          </GooglePlacesAutocomplete>
-          {this.displaySensores()}
-          {this.displayConcesionados()}
-          {this.displayMotocicletas()}
-          {this.displayPrivados()}
-          {this.displayPrivadosTechados()}
-          {this.displayProhibidoEstacionar()}
-          {this.displayRestringidoEstacionar()}
+      <PlacesAutocomplete  
+        value={this.state.address}
+        onChange={this.handleChange}
+        onSelect={this.handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <input style={styleAutocomplete} id="autoComplete"
+              {...getInputProps({
+                placeholder: '¿Dónde quieres estacionar?...',
+                className: 'location-search-input',
+              })}
+            />
+            <div className="autocomplete-dropdown-container" style={styleDropdown}>
+              {loading && <div style = {styleLoading} >Cargando...</div>}
+              {suggestions.map(suggestion => {
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                // inline style for demonstration purpose
+                const style = suggestion.active
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                return (
+                  <div
+                    {...getSuggestionItemProps(suggestion, {
+                      className,
+                      style,
+                    })}
+                  >
+                    <span>{suggestion.description}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <label for="autoComplete">¿Dónde quieres estacionar?...</label>
+          </div>
+        )}
+      </PlacesAutocomplete>
+          {this.displayOcupados()}
+          {this.state.mostrarConcesionado && this.displayConcesionados()}
+          {this.state.mostrarMoto && this.displayMotocicletas()}
+          {this.state.mostrarPrivado && this.displayPrivados()}
+          {this.state.mostrarProhibido && this.displayProhibidoEstacionar()}
+          {this.state.mostrarRestringido && this.displayRestringidoEstacionar()}
+          {this.state.mostrarPermitido && this.displayPermitidoEstacionar()}
+          
           <InfoWindow
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}
           >
+
           <div>
             <h4>{this.state.selectedPlace.name}</h4>
           </div>
+
           </InfoWindow>
 
-          <Legend>
-            
-          </Legend>
-
+          {this.displayReferenciasMarcas()}
+          {this.displayReferenciasLineas()}
       </Map>
     );
   }
 }
 
-const mapStyles = {
+const styleLoading = {
+  backgroundColor: '#fafafa',
+};
+
+const styleDropdown = {
+  position:'fixed',
+  fontFamily: 'Lato, sans-serif',
+  fontSize: '25px',
   width: '100%',
-  height: '100%',
+  top: '105px',
+  marginLeft: '-8px',
+};
+
+const styleAutocomplete = {
+  position:'fixed',
+  fontFamily: 'Lato, sans-serif',
+  fontSize: '25px',
+  width: '100%',
+  top: '70px',
+  marginLeft: '-10px',
+};
+
+const mapStyles = {
+  position: 'absolute',
+  bottom: '0px',
+  marginLeft: '-10px',
 };
 
 

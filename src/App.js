@@ -1,19 +1,66 @@
- // src/App.js
+import React from 'react';
+import { useEffect, useState } from 'react';
+import loadingGif from './loading.gif'
+import io from "socket.io-client";
+import MapComponent from "./map-component";
 
- import React, { Component } from 'react';
+function App() {
+  const [socket, setSocket] = useState(null);
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [dt, setDt] = useState('');
 
- class App extends Component {
-   render() {
-     return (
-       <div class="card">
-         <div class="card-body">
-           <h5 class="card-title">Steve Jobs</h5>
-           <h6 class="card-subtitle mb-2 text-muted">steve@apple.com</h6>
-           <p class="card-text">Stay Hungry, Stay Foolish</p>
-         </div>
-       </div>
-     );
-   }
+  // establish socket connection
+  useEffect(() => {
+    setSocket(io('http://localhost:4000'));
+  }, []);
+
+  // subscribe to the socket event
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on('connect', () => {
+      setSocketConnected(socketConnected, true);
+      subscribeToDateEvent();
+    });
+    socket.on('disconnect', () => {
+      setSocketConnected(socketConnected, false);
+    });
+
+    socket.on("getDisponibilidad", data => {
+      setDt(data);
+    });
+
+  }, [socket, socketConnected]);
+
+  // subscribe to socket disponibilidad event
+  const subscribeToDateEvent = (interval = 5000) => {
+    socket.emit('subscribeToDateEvent', interval);
+  }
+  
+  //  if(dt === "001,libre"){
+  //    return (<MapComponent latitude={-34.617247} longitude={-58.383013} idSensor={1}></MapComponent>);
+  //    }else{
+  //      if(dt === "001,ocupado"){
+         return (<MapComponent ></MapComponent>);
+    //    }else{
+    //      return (
+    //        <div
+    //          style={loadingStyle}>
+    //          <img
+    //            src={loadingGif}
+    //            alt={"loading..."}
+    //            style={loadingStyle}>
+    //          </img>
+    //        </div>);
+    //    }
+    //  }
  }
 
- export default App;
+const loadingStyle = {
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+export default App;
