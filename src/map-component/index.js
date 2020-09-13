@@ -507,7 +507,7 @@ const styleDropdown = {
   fontFamily: 'Lato, sans-serif',
   fontSize: '25px',
   width: '100%',
-  top: '100px',
+  top: '105px',
   marginLeft: '-8px',
 };
 

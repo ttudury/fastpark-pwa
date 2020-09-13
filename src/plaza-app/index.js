@@ -12,7 +12,6 @@ class PlazaApp extends React.Component {
     this.state = { plazas: [] }
   }
   
-
   render() {
       return (
         <div className="float-container">
