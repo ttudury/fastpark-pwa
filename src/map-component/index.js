@@ -517,19 +517,27 @@ const styleLoading = {
 const styleDropdown = {
   position:'fixed',
   fontFamily: 'Lato, sans-serif',
-  fontSize: '25px',
-  width: '100%',
+  fontSize: '20px',
+  width: '94%',
   top: '105px',
-  marginLeft: '-8px',
+  padding: '4px',
+  margin: 'auto',
+  borderColor: 'darkslategrey',
+  borderWidth: 'thin',
 };
 
 const styleAutocomplete = {
   position:'fixed',
   fontFamily: 'Lato, sans-serif',
-  fontSize: '25px',
-  width: '100%',
+  fontSize: '20px',
+  width: '94%',
   top: '70px',
-  marginLeft: '-10px',
+  padding: '4px',
+  paddingLeft: '20px',
+  borderRadius: '25px',
+  margin: 'auto',
+  borderColor: 'darkslategrey',
+  borderWidth: 'thin',
 };
 
 const mapStyles = {
