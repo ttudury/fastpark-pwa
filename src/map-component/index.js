@@ -349,7 +349,7 @@ class MapComponent extends React.Component {
       return response.json()
     })
     .then((jsonResponse) => {
-      console.log(jsonResponse)
+      // console.log(jsonResponse)
       this.setState({privados: jsonResponse })
     })
 
@@ -479,7 +479,7 @@ handleSelect = address => {
                 );
               })}
             </div>
-            <label for="autoComplete">¿Dónde quieres estacionar?...</label>
+            <label>¿Dónde quieres estacionar?...</label>
           </div>
         )}
       </PlacesAutocomplete>
@@ -518,7 +518,7 @@ const styleDropdown = {
   position:'fixed',
   fontFamily: 'Lato, sans-serif',
   fontSize: '20px',
-  width: '94%',
+  width: '90%',
   top: '105px',
   padding: '4px',
   margin: 'auto',
@@ -530,7 +530,7 @@ const styleAutocomplete = {
   position:'fixed',
   fontFamily: 'Lato, sans-serif',
   fontSize: '20px',
-  width: '94%',
+  width: '90%',
   top: '70px',
   padding: '4px',
   paddingLeft: '20px',
