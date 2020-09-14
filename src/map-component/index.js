@@ -57,66 +57,7 @@ class MapComponent extends React.Component {
   }
   
   componentDidMount() {
-
-      fetch('https://fastpark-api.herokuapp.com/api/estacionamientos/con')
-        .then((response) => {
-          // console.log(response)
-          return response.json()
-        })
-        .then((jsonResponse) => {
-          // console.log(jsonResponse)
-          this.setState({ concesionados: jsonResponse })
-        })
-
-      fetch('https://fastpark-api.herokuapp.com/api/estacionamientos/pri')
-        .then((response) => {
-          // console.log(response)
-          return response.json()
-        })
-        .then((jsonResponse) => {
-          console.log(jsonResponse)
-          this.setState({privados: jsonResponse })
-        })
-
-      fetch('https://fastpark-api.herokuapp.com/api/estacionamientos/mot')
-        .then((response) => {
-          // console.log(response)
-          return response.json()
-        })
-        .then((jsonResponse) => {
-          // console.log(jsonResponse)
-          this.setState({publicosMoto: jsonResponse })
-        })
-
-      fetch('https://fastpark-api.herokuapp.com/api/viapublica/pro')
-        .then((response) => {
-          // console.log(response)
-          return response.json()
-        })
-        .then((jsonResponse) => {
-          // console.log(jsonResponse)
-          this.setState({ estacionarProhibido: jsonResponse })
-        })
-
-      fetch('https://fastpark-api.herokuapp.com/api/viapublica/res')
-        .then((response) => {
-          // console.log(response)
-          return response.json()
-        })
-        .then((jsonResponse) => {
-          // console.log(jsonResponse)
-          this.setState({ estacionarRestringido: jsonResponse })
-        })
-
-      fetch('https://fastpark-api.herokuapp.com/api/viapublica/lib')
-        .then((response) => {
-          // console.log(response)
-          return response.json()
-        })
-        .then((jsonResponse) => {
-          // console.log(jsonResponse)
-          this.setState({ estacionarPermitido: jsonResponse })
-        })
+    this.actualizarData(this.state.initCenter);
   }
   
   displayProhibidoEstacionar = () => {
@@ -384,6 +325,75 @@ class MapComponent extends React.Component {
       </Container>);
   }
 
+  actualizarData = (center) =>
+  {
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ latitud:center.lat, longitud:center.lng })
+  };
+    fetch('http://127.0.0.1:8003/api/estacionamientos/con', requestOptions)
+    .then((response) => {
+      // console.log(response)
+      return response.json()
+    })
+    .then((jsonResponse) => {
+      // console.log(jsonResponse)
+      this.setState({ concesionados: jsonResponse })
+    })
+
+  fetch('http://127.0.0.1:8003/api/estacionamientos/pri', requestOptions)
+    .then((response) => {
+      // console.log(response)
+      return response.json()
+    })
+    .then((jsonResponse) => {
+      console.log(jsonResponse)
+      this.setState({privados: jsonResponse })
+    })
+
+  fetch('http://127.0.0.1:8003/api/estacionamientos/mot', requestOptions)
+    .then((response) => {
+      // console.log(response)
+      return response.json()
+    })
+    .then((jsonResponse) => {
+      // console.log(jsonResponse)
+      this.setState({publicosMoto: jsonResponse })
+    })
+
+  fetch('http://127.0.0.1:8003/api/viapublica/pro')
+    .then((response) => {
+      // console.log(response)
+      return response.json()
+    })
+    .then((jsonResponse) => {
+      // console.log(jsonResponse)
+      this.setState({ estacionarProhibido: jsonResponse })
+    })
+
+  fetch('http://127.0.0.1:8003/api/viapublica/res')
+    .then((response) => {
+      // console.log(response)
+      return response.json()
+    })
+    .then((jsonResponse) => {
+      // console.log(jsonResponse)
+      this.setState({ estacionarRestringido: jsonResponse })
+    })
+
+  fetch('http://127.0.0.1:8003/api/viapublica/lib')
+    .then((response) => {
+      // console.log(response)
+      return response.json()
+    })
+    .then((jsonResponse) => {
+      // console.log(jsonResponse)
+      this.setState({ estacionarPermitido: jsonResponse })
+    })
+  }
+
   onMarkerClick = (props, marker, e) =>
   this.setState({
     selectedPlace: props,
@@ -408,12 +418,14 @@ handleSelect = address => {
   console.log(address);
   geocodeByAddress(address)
     .then(results => getLatLng(results[0]))
-    .then(latLng => 
+    .then((latLng) => {
       this.setState({
         address : address,
         center: latLng,
-      }))
-    .catch(error => console.error('Error', error));
+      })
+      this.actualizarData(latLng);
+    }).catch(error => console.error('Error', error));
+      
 };
 
   render() {
