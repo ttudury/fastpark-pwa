@@ -58,7 +58,7 @@ class MapComponent extends React.Component {
   
   componentDidMount() {
 
-      fetch('http://127.0.0.1:8001/api/estacionamientos/con')
+      fetch('https://fastpark-api.herokuapp.com/api/estacionamientos/con')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -68,7 +68,7 @@ class MapComponent extends React.Component {
           this.setState({ concesionados: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8001/api/estacionamientos/pri')
+      fetch('https://fastpark-api.herokuapp.com/api/estacionamientos/pri')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -78,7 +78,7 @@ class MapComponent extends React.Component {
           this.setState({privados: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8001/api/estacionamientos/mot')
+      fetch('https://fastpark-api.herokuapp.com/api/estacionamientos/mot')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -88,7 +88,7 @@ class MapComponent extends React.Component {
           this.setState({publicosMoto: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8001/api/viapublica/pro')
+      fetch('https://fastpark-api.herokuapp.com/api/viapublica/pro')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -98,7 +98,7 @@ class MapComponent extends React.Component {
           this.setState({ estacionarProhibido: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8001/api/viapublica/res')
+      fetch('https://fastpark-api.herokuapp.com/api/viapublica/res')
         .then((response) => {
           // console.log(response)
           return response.json()
@@ -108,7 +108,7 @@ class MapComponent extends React.Component {
           this.setState({ estacionarRestringido: jsonResponse })
         })
 
-      fetch('http://127.0.0.1:8001/api/viapublica/lib')
+      fetch('https://fastpark-api.herokuapp.com/api/viapublica/lib')
         .then((response) => {
           // console.log(response)
           return response.json()
