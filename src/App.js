@@ -11,7 +11,7 @@ function App() {
 
   // establish socket connection
   useEffect(() => {
-    setSocket(io('http://localhost:4000'));
+    setSocket(io('http://192.168.0.33:4000/'));
   }, []);
 
   // subscribe to the socket event
@@ -37,23 +37,23 @@ function App() {
     socket.emit('subscribeToDateEvent', interval);
   }
   
-  //  if(dt === "001,libre"){
-  //    return (<MapComponent latitude={-34.617247} longitude={-58.383013} idSensor={1}></MapComponent>);
-  //    }else{
-  //      if(dt === "001,ocupado"){
+   if(dt === "001,libre"){
+     return (<MapComponent latitude={-34.617247} longitude={-58.383013} idSensor={1}></MapComponent>);
+     }else{
+       if(dt === "001,ocupado"){
          return (<MapComponent ></MapComponent>);
-    //    }else{
-    //      return (
-    //        <div
-    //          style={loadingStyle}>
-    //          <img
-    //            src={loadingGif}
-    //            alt={"loading..."}
-    //            style={loadingStyle}>
-    //          </img>
-    //        </div>);
-    //    }
-    //  }
+       }else{
+         return (
+           <div
+             style={loadingStyle}>
+             <img
+               src={loadingGif}
+               alt={"loading..."}
+               style={loadingStyle}>
+             </img>
+           </div>);
+       }
+     }
  }
 
 const loadingStyle = {

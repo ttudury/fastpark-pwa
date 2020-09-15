@@ -327,53 +327,53 @@ class MapComponent extends React.Component {
       <Container styles={{width:"100px"}}>
         <Button
           styles={{right: "40px", opacity: opacityDis}}
-          tooltip="Estacionamiento Disponible">
+          tooltip="Estacionamiento Disponible"
+          onClick={() => this.setState({ mostrarDisponible: !mostrarDisponible })}>
           <img 
             src={sensorDisponibleIcon} 
             width={"32"} 
             height={"32"} 
-            alt={"eDisponible"} 
-            onClick={() => this.setState({ mostrarDisponible: !mostrarDisponible })}/>
+            alt={"eDisponible"} />
         </Button>
         <Button
           styles={{right: "40px", opacity: opacityOcu}}
-          tooltip="Estacionamiento Ocupado">
+          tooltip="Estacionamiento Ocupado"
+          onClick={() => this.setState({ mostrarOcupado: !mostrarOcupado })}>
           <img 
             src={sensorOcupadoIcon} 
             width={"32"} 
             height={"32"} 
-            alt={"eOcupado"} 
-            onClick={() => this.setState({ mostrarOcupado: !mostrarOcupado })}/>
+            alt={"eOcupado"} />
         </Button>  
         <Button
           styles={{right: "40px", opacity: opacityCon}}
-          tooltip="Estacionamiento Concesionado">
+          tooltip="Estacionamiento Concesionado"
+          onClick={() => this.setState({ mostrarConcesionado: !mostrarConcesionado })}>
           <img 
             src={concecionadoIcon} 
             width={"32"} 
             height={"32"} 
-            alt={"eConcesionado"} 
-            onClick={() => this.setState({ mostrarConcesionado: !mostrarConcesionado })}/>
+            alt={"eConcesionado"} />
         </Button>      
         <Button
           styles={{right: "40px", opacity: opacityMot}}
-          tooltip="Estacionamiento Motos">
+          tooltip="Estacionamiento Motos"
+          onClick={() => this.setState({ mostrarMoto: !mostrarMoto })}>
           <img 
             src={motoIcon} 
             width={"32"} 
             height={"32"} 
-            alt={"eMotos"} 
-            onClick={() => this.setState({ mostrarMoto: !mostrarMoto })}/>
+            alt={"eMotos"} />
         </Button>      
         <Button
           styles={{right: "40px", opacity: opacityPri}}
-          tooltip="Estacionamiento Privado">
+          tooltip="Estacionamiento Privado"
+          onClick={() => this.setState({ mostrarPrivado: !mostrarPrivado })}>
           <img 
             src={privadoIcon} 
             width={"32"} 
             height={"32"} 
-            alt={"ePrivado"} 
-            onClick={() => this.setState({ mostrarPrivado: !mostrarPrivado })}/>
+            alt={"ePrivado"} />
         </Button>
         <Button
           styles={{backgroundColor: " #3f51b5 ", right: "40px", fontFamily: 'Comfortaa'}}
