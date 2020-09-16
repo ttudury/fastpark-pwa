@@ -363,7 +363,7 @@ class MapComponent extends React.Component {
       this.setState({publicosMoto: jsonResponse })
     })
 
-  fetch('https://fastpark-api.herokuapp.com/api/viapublica/pro')
+  fetch('https://fastpark-api.herokuapp.com/api/viapublica/pro', requestOptions)
     .then((response) => {
       // console.log(response)
       return response.json()
@@ -373,7 +373,7 @@ class MapComponent extends React.Component {
       this.setState({ estacionarProhibido: jsonResponse })
     })
 
-  fetch('https://fastpark-api.herokuapp.com/api/viapublica/res')
+  fetch('https://fastpark-api.herokuapp.com/api/viapublica/res', requestOptions)
     .then((response) => {
       // console.log(response)
       return response.json()
@@ -383,7 +383,7 @@ class MapComponent extends React.Component {
       this.setState({ estacionarRestringido: jsonResponse })
     })
 
-  fetch('https://fastpark-api.herokuapp.com/api/viapublica/lib')
+  fetch('https://fastpark-api.herokuapp.com/api/viapublica/lib', requestOptions)
     .then((response) => {
       // console.log(response)
       return response.json()
