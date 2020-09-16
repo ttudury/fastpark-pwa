@@ -11,7 +11,7 @@ function App() {
 
   // establish socket connection
   useEffect(() => {
-    setSocket(io('https://pablo-dc4a7a4d.localhost.run/'));
+      setSocket(io('https://pablo-dc4a7a4d.localhost.run/'));
   }, []);
 
   // subscribe to the socket event
@@ -42,6 +42,7 @@ function App() {
   //    }else{
   //      if(dt === "001,ocupado"){
           return (<MapComponent ></MapComponent>);
+
   //      }else{
   //        return (
   //          <div
