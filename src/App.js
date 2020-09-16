@@ -11,7 +11,7 @@ function App() {
 
   // establish socket connection
   useEffect(() => {
-    setSocket(io('https://pablo-dc4a7a4d.localhost.run/'));
+      setSocket(io('https://pablo-dc4a7a4d.localhost.run/'));
   }, []);
 
   // subscribe to the socket event
@@ -37,23 +37,23 @@ function App() {
     socket.emit('subscribeToDateEvent', interval);
   }
   
-   if(dt === "001,libre"){
+  //  if(dt === "001,libre"){
      return (<MapComponent latitude={-34.617247} longitude={-58.383013} idSensor={1}></MapComponent>);
-     }else{
-       if(dt === "001,ocupado"){
-         return (<MapComponent ></MapComponent>);
-       }else{
-         return (
-           <div
-             style={loadingStyle}>
-             <img
-               src={loadingGif}
-               alt={"loading..."}
-               style={loadingStyle}>
-             </img>
-           </div>);
-       }
-     }
+  //    }else{
+  //      if(dt === "001,ocupado"){
+  //        return (<MapComponent ></MapComponent>);
+  //      }else{
+  //        return (
+  //          <div
+  //            style={loadingStyle}>
+  //            <img
+  //              src={loadingGif}
+  //              alt={"loading..."}
+  //              style={loadingStyle}>
+  //            </img>
+  //          </div>);
+  //      }
+  //    }
  }
 
 const loadingStyle = {
