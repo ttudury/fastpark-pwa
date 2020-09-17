@@ -21,10 +21,11 @@
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.3",
     "react-floating-action-button": "^1.0.5",
-    "react-google-places-autocomplete": "^3.0.0-alpha.1",
+    "react-google-places-autocomplete": "^3.0.0",
     "react-places-autocomplete": "^7.3.0",
     "react-scripts": "3.4.0",
     "serialport": "^9.0.1",
+    "serve": "^11.3.2",
     "socket.io": "^2.3.0",
     "typeface-roboto": "0.0.75"
   },
