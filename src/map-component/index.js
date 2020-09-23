@@ -436,7 +436,6 @@ handleChange = address => {
 };
 
 handleSelect = address => {
-  console.log(address);
   geocodeByAddress(address)
     .then(results => getLatLng(results[0]))
     .then((latLng) => {
@@ -444,10 +443,8 @@ handleSelect = address => {
         address: address,
         center: latLng,
       })
-      console.log(this.state.center);
       this.actualizarData(latLng);
     }).catch(error => console.error('Error', error));
-      
 };
 
   render() {
