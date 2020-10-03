@@ -9,7 +9,7 @@ class PlazaApp extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { plazas: [] }
+    this.state = {  }
   }
   
   render() {

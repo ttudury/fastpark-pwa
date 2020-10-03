@@ -11,6 +11,7 @@ import sensorDisponibleIcon from './sensorDisponibleIcon.png';
 import motoIcon from './motoIcon.png';
 import concecionadoIcon from './concecionadoIcon.png';
 import privadoIcon from './privadoIcon.png';
+import destinoIcon from './flag.png';
 
 class MapComponent extends React.Component {
   constructor(props) {
@@ -101,7 +102,7 @@ class MapComponent extends React.Component {
     })
   }
 
-  displayOcupados = () => {
+  displaySensores = () => {
     return this.state.arduinosOcu.map((store, index) => {
       if(store.idSensor !== this.props.idSensor && this.state.mostrarOcupado === true)
       {
@@ -435,17 +436,15 @@ handleChange = address => {
 };
 
 handleSelect = address => {
-  console.log(address);
   geocodeByAddress(address)
     .then(results => getLatLng(results[0]))
     .then((latLng) => {
       this.setState({
-        address : address,
+        address: address,
         center: latLng,
       })
       this.actualizarData(latLng);
     }).catch(error => console.error('Error', error));
-      
 };
 
   render() {
@@ -503,28 +502,37 @@ handleSelect = address => {
           </div>
         )}
       </PlacesAutocomplete>
-          {this.displayOcupados()}
-          {this.state.mostrarConcesionado && this.displayConcesionados()}
-          {this.state.mostrarMoto && this.displayMotocicletas()}
-          {this.state.mostrarPrivado && this.displayPrivados()}
-          {this.state.mostrarProhibido && this.displayProhibidoEstacionar()}
-          {this.state.mostrarRestringido && this.displayRestringidoEstacionar()}
-          {this.state.mostrarPermitido && this.displayPermitidoEstacionar()}
-          
-          <InfoWindow
-            marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}
-            onClose={this.onClose}
-          >
 
-          <div>
-            <h4>{this.state.selectedPlace.name}</h4>
-          </div>
+      {this.displaySensores()}
+      {this.state.mostrarConcesionado && this.displayConcesionados()}
+      {this.state.mostrarMoto && this.displayMotocicletas()}
+      {this.state.mostrarPrivado && this.displayPrivados()}
+      {this.state.mostrarProhibido && this.displayProhibidoEstacionar()}
+      {this.state.mostrarRestringido && this.displayRestringidoEstacionar()}
+      {this.state.mostrarPermitido && this.displayPermitidoEstacionar()}
+      
+      <Marker key={"destination"} id={"destination"} position={{
+        lat: this.state.center.lat,
+        lng: this.state.center.lng
+      }} icon={ destinoIcon }
+      onClick={this.onMarkerClick}
+      name={"Su lugar de destino"}
+      >
+      </Marker>       
 
-          </InfoWindow>
+      <InfoWindow
+        marker={this.state.activeMarker}
+        visible={this.state.showingInfoWindow}
+        onClose={this.onClose}
+      >
 
-          {this.displayReferenciasMarcas()}
-          {this.displayReferenciasLineas()}
+        <h4>{this.state.selectedPlace.name}</h4>
+      
+      </InfoWindow>
+
+      {this.displayReferenciasMarcas()}
+      {this.displayReferenciasLineas()}
+
       </Map>
     );
   }
