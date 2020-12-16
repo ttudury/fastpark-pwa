@@ -614,6 +614,6 @@ const mapTypes = [
 
 export default (
       GoogleApiWrapper({
-          apiKey: 'AIzaSyDTFFrHQW_TxJsP9pnkrpZXkytGY03EL9g'
+          apiKey: 'AIzaSyDDdW-q8iCpmGrw9HPEfCGShb7wBVIp1yg'
       })(MapComponent)
 )
