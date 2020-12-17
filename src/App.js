@@ -11,7 +11,7 @@ function App() {
 
   // establish socket connection
   useEffect(() => {
-      setSocket(io('https://pablo-dfd9133f.localhost.run/'));
+      setSocket(io('https://pablo-a0bedbcf.localhost.run/'));
   }, []);
 
   // subscribe to the socket event
