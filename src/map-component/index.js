@@ -217,14 +217,14 @@ class MapComponent extends React.Component {
         {
           mostrarRefLineas && 
             <Fab size="medium" style={{backgroundColor:" #ed5457 ", opacity: opacityEstPro}} 
-            tooltip="Estacionamiento Permitido" 
+            tooltip="Permitido Estacionar" 
             onClick={() => this.setState({ mostrarProhibido: !mostrarProhibido })}>
             </Fab>              
         }
         {
           mostrarRefLineas && 
             <Fab size="medium" style={{backgroundColor:" #ef8644 ", opacity: opacityEstRes}} 
-            tooltip="Estacionamiento Permitido" 
+            tooltip="Estacionamiento restringido" 
             onClick={() => this.setState({ mostrarRestringido: !mostrarRestringido })}>
             </Fab>              
         }
@@ -232,7 +232,7 @@ class MapComponent extends React.Component {
           mostrarRefLineas && 
             <Fab size="medium" 
               style={{backgroundColor:" #22c1af ", opacity: opacityEstPer}}
-              tooltip="prohibido estacopas"  
+              tooltip="Prohibido estacionar"  
               onClick={() => this.setState({ mostrarPermitido: !mostrarPermitido })}>
             </Fab>              
         }
